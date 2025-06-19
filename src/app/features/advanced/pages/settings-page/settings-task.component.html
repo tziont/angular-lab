@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>Dynamic Settings Page – System Design Task</h1>
+
+  <section class="overview">
+    <p>
+      Build a dynamic and role-aware settings page that fetches a list of settings from a mock backend. The settings should be organized visually, efficiently rendered, and restricted by user roles.
+    </p>
+
+    <h2>Task</h2>
+    <ul>
+      <li>Each setting has: <code>type</code>, <code>key</code>, <code>label</code>, <code>value</code>, <code>group</code>, and <code>roles: string[]</code>.</li>
+      <li>Render each setting under its group title, using a collapsible panel per group.</li>
+      <li>Each setting is editable by the user using its respective input type (e.g. toggle, dropdown, text input), and updates should be tracked locally.</li>
+      <li>Only display settings visible to the current user role (e.g. <code>'admin'</code>, <code>'editor'</code>).</li>
+      <li>Each setting type (e.g. toggle, select, input) should be rendered dynamically.</li>
+      <li>Show a visual indicator (e.g. icon or color) if a setting was modified (dirty).</li>
+      <li>Optimize your data structure for performance (e.g. fast access by group, key, role).</li>
+      <li>Do not hardcode types or group names — the system must be extensible.</li>
+      <li>Use a “Save” button to log changed settings to the console (no backend needed).</li>
+    </ul>
+  </section>
+  <app-task-container></app-task-container>
+</div>

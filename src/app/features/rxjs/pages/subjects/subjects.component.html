@@ -1,0 +1,25 @@
+<div class="container">
+    <h1>Subject and Its Variants</h1>
+  
+    <section class="overview">
+      <p>
+        A <strong>Subject</strong> in RxJS is a special kind of <code>Observable</code> that you can also send values into. It's useful when you want to manually control the data being shared across multiple subscribers. Unlike regular observables that only emit data from within, a Subject lets you both listen and emit.
+      </p>
+  
+      <p>
+        RxJS provides a few types of Subjects, each with slightly different behavior:
+      </p>
+  
+      <ul>
+        <li><strong>Subject</strong>: Only sends values to subscribers who are already subscribed when the value is emitted.</li>
+        <li><strong>BehaviorSubject</strong>: Always remembers the most recent value and sends it immediately to new subscribers.</li>
+        <li><strong>ReplaySubject</strong>: Remembers a set number of previous values and replays them to any new subscribers.</li>
+        <li><strong>AsyncSubject</strong>: Waits until it's completed, then sends only the last value to all subscribers.</li>
+      </ul>
+  
+      <h2>Example of Subject</h2>
+      <app-subject-demo></app-subject-demo>
+      <h2>Example of BehaviorSubject</h2>
+      <app-behaviorsubject></app-behaviorsubject>
+    </section>
+  </div>

@@ -1,0 +1,6 @@
+<div class="container">
+<label for={{key}}>{{label}}</label>
+<input [formControl]="toggleControl" type="checkbox"  id={{key}} value={{value}}/>
+<small *ngIf="!!isModified">this field has been modified</small>
+
+</div>

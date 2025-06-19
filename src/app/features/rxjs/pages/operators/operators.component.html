@@ -1,0 +1,32 @@
+<div class="container">
+    <h1>Common RxJS Operators</h1>
+  
+    <section class="overview">
+      <p>
+        <strong>RxJS Operators</strong> are powerful tools that help you transform, filter, combine, and manage streams of data. They make it easier to work with asynchronous data in a declarative way.
+      </p>
+  
+      <p>
+        Below are some of the most frequently used operators in Angular development:
+      </p>
+  
+      <ul>
+        <li><strong>map</strong>: Transforms each emitted value using a projection function.</li>
+        <li><strong>filter</strong>: Emits only values that satisfy a given condition.</li>
+        <li><strong>tap</strong>: Performs side effects like logging or debugging, without changing the stream.</li>
+        <li><strong>switchMap</strong>: Switches to a new inner observable, canceling the previous one. Useful for typeahead inputs or auth checks.</li>
+        <li><strong>concatMap</strong>: Maps each value to an inner observable and waits for it to complete before moving to the next. Great for sequential HTTP requests.</li>
+        <li><strong>mergeMap</strong>: Like concatMap, but processes all inner observables concurrently. Ideal for parallel requests.</li>
+        <li><strong>catchError</strong>: Catches and handles errors in the observable chain.</li>
+      </ul>
+      <h2>Example of map</h2>
+      <app-map-demo></app-map-demo>
+      <h2>Example of filter</h2>
+      <app-filter-demo></app-filter-demo>
+      <h2>Example of tap</h2>
+      <app-tap-demo></app-tap-demo>
+      <h2>Example of switchMap</h2>
+      <app-switch-map-demo></app-switch-map-demo>
+    </section>
+  </div>
+  

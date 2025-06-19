@@ -1,0 +1,19 @@
+:host {
+  margin-top: 20px;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  small {
+    display: inline-block;
+    margin-left: auto;
+    color: red;
+    padding:0 20px;
+  }
+}
+
+label {
+  margin-right: 10px;
+}

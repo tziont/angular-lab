@@ -1,0 +1,33 @@
+
+.expander{
+  display: none;
+  margin: 5px 0;
+  &.show{
+    display: block;
+  }
+}
+h3{
+  margin:0 ;
+}
+.group-title{
+  display:flex;
+  justify-content: space-between;
+  background: #ddd;
+  padding: 5px 10px;
+}
+.content {
+    display: none;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+
+    &.open {
+      display: block;
+    }
+  }
+  .container{
+    display: none;
+    &.open{
+      display: block;
+    }
+  }

@@ -1,0 +1,7 @@
+<input [formControl]="searchControl" placeholder="Search fruit..." />
+
+<ul>
+  <li *ngFor="let item of searchResults$ | async">
+    {{ item }}
+  </li>
+</ul>

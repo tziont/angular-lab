@@ -1,0 +1,12 @@
+<h3>Observable Demo</h3>
+
+<div class="controls">
+  <button (click)="startObservable()">Start Observable</button>
+  <button (click)="stopObservable()">Stop Observable</button>
+</div>
+
+<p *ngIf="statusMessage">{{ statusMessage }}</p>
+
+<ul>
+  <li *ngFor="let msg of messages">{{ msg }}</li>
+</ul>

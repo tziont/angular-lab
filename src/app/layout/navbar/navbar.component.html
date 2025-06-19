@@ -1,0 +1,12 @@
+<nav class="navbar">
+  <div class="logo" routerLink="/">Senior Angular Lab</div>
+  <ul class="nav-links">
+    <li *ngFor="let topic of topics">
+      <a [routerLink]="topic.path" routerLinkActive="active">{{ topic.label }}</a>
+    </li>
+    <div class="theme-toggle">
+      <button (click)="toggleTheme()" style="margin: 12px 20px; font-size: 16px;">🌓Toggle</button>
+    </div>
+  </ul>
+  
+</nav>
