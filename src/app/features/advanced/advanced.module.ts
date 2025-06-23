@@ -9,7 +9,7 @@ import {  HttpClientModule } from '@angular/common/http';
 import { ToggleComponent } from './pages/settings-page/components/toggle/toggle.component';
 import { SelectComponent } from './pages/settings-page/components/select/select.component';
 import { TextComponent } from './pages/settings-page/components/text/text.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {  ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [AdvancedHomeComponent,TaskContainerComponent,SettingsTaskComponent, TaskComponent, TextComponent,ToggleComponent,SelectComponent ],
   imports: [
@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AdvancedRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    
   ]
 })
 export class AdvancedModule { }

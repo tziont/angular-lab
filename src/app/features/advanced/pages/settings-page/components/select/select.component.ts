@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SelectOption } from '../../../../../../types/setting.model';
 import { Value } from '../../../../../../types/setting.model';
 import { FormControl } from '@angular/forms';
@@ -9,32 +9,22 @@ import { FormControl } from '@angular/forms';
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss',
 })
-export class SelectComponent implements AfterViewInit, OnInit {
+export class SelectComponent implements OnInit {
   @Input()
   key!: string;
   @Input()
   label!: string;
   @Input()
-  roles!: string[];
-  @Input()
-  group?: string;
-  @Input()
   value!: Value;
   @Input()
   options!: SelectOption[];
+  @Input()
+  control!: FormControl;
   isModified: boolean | undefined;
 
-  selectControll = new FormControl();
-
   ngOnInit(): void {
-    this.selectControll.valueChanges.subscribe((value) => {
-      console.log('Selected value: ', value);
-      this.isModified = this.selectControll.dirty;
-      console.log('Is select dirty:', this.isModified);
+    this.control.valueChanges.subscribe((value) => {
+      this.isModified = this.control.dirty;
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.selectControll.setValue(this.value);
   }
 }

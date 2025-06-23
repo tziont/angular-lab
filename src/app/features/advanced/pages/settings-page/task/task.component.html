@@ -1,9 +1,10 @@
 <button (click)="getSetting()">Get settings</button>
 <div class="container" [class.open]="isContainerOpen">
+  <form [formGroup]="form">
 <div class="expander" [class.show]="isShowAppearance">
   <div class="group-title">
     <h3>Appearance</h3>
-    <button (click)="toggle('appearance')">
+    <button (click)="toggleExpander('appearance')">
       {{ isAppearanceOpen ? "Collapse" : "Expand" }}
     </button>
   </div>
@@ -16,7 +17,7 @@
 <div class="expander" [class.show]="isShowGeneral">
   <div class="group-title">
     <h3>General</h3>
-    <button (click)="toggle('general')">
+    <button (click)="toggleExpander('general')">
       {{ isGeneralOpen ? "Collapse" : "Expand" }}
     </button>
   </div>
@@ -29,7 +30,7 @@
 <div class="expander" [class.show]="isShowDisplay">
   <div class="group-title">
     <h3>Display</h3>
-    <button (click)="toggle('display')">
+    <button (click)="toggleExpander('display')">
       {{ isDisplayOpen ? "Collapse" : "Expand" }}
     </button>
   </div>
@@ -38,6 +39,7 @@
     <ng-template #display></ng-template>
   </div>
 </div>
-<button (click)="saveSettings()">Save Settings</button>
+<button (click)="setSettings()">Save Settings</button>
+</form>
 </div>
 

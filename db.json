@@ -4,108 +4,154 @@
       "key": "dark_mode",
       "label": "Enable Dark Mode",
       "type": "Toggle",
-      "roles": ["Admin", "Editor"],
+      "roles": [
+        "Admin",
+        "Editor"
+      ],
       "group": "Appearance",
-      "value": true,
       "metadata": {
         "tooltip": "Switch between light and dark themes"
-      }
+      },
+      "id": "f194"
     },
     {
       "key": "items_per_page",
       "label": "Items per Page",
       "type": "Select",
-      "roles": ["Admin","Editor","User" ],
+      "roles": [
+        "Admin",
+        "Editor",
+        "User"
+      ],
       "group": "Display",
-      "value": 10,
       "metadata": {
         "required": true,
         "tooltip": "Choose how many items are shown",
         "options": [
-          { "label": "10", "value": 10 },
-          { "label": "25", "value": 25 },
-          { "label": "50", "value": 50 }
+          {
+            "label": "10",
+            "value": "10"
+          },
+          {
+            "label": "25",
+            "value": "25"
+          },
+          {
+            "label": "50",
+            "value": "50"
+          }
         ]
-      }
+      },
+      "id": "e2e2",
+      "value": "50"
     },
-     {
+    {
       "key": "font_mode",
       "label": "Change fonts",
       "type": "Toggle",
-      "roles": ["Admin", "Editor", "User"],
+      "roles": [
+        "Admin",
+        "Editor",
+        "User"
+      ],
       "group": "Appearance",
-      "value": true,
+      "value": false,
       "metadata": {
         "tooltip": "Switch between font size"
-      }
+      },
+      "id": "513c"
     },
     {
-      "key": "site_title",
-      "label": "Site Title",
+      "key": "site_shmitle",
+      "label": "Site Shmaitle",
       "type": "Text",
-      "roles": ["Admin","User"],
+      "roles": [
+        "Admin",
+        "User"
+      ],
       "group": "General",
-      "value": "My Awesome App",
+      "value": "WOW that is WOW",
       "metadata": {
         "required": true,
         "tooltip": "Displayed in the browser tab",
         "min": 5,
         "max": 30
-      }
+      },
+      "id": "06bb"
     },
-     {
+    {
       "key": "blue_mode",
       "label": "Enable Blue Mode",
       "type": "Toggle",
-      "roles": ["Admin"],
+      "roles": [
+        "Admin"
+      ],
       "group": "Appearance",
-      "value": true,
       "metadata": {
         "tooltip": "Switch between light and dark themes"
-      }
+      },
+      "id": "bcc6"
     },
     {
       "key": "posts",
       "label": "posts per User",
       "type": "Select",
-      "roles": ["Editor" ],
-      "group": "Display",
-      "value": 10,
+      "roles": [
+        "Editor",
+        "Admin"
+      ],
+      "group": "Appearance",
       "metadata": {
         "required": true,
         "tooltip": "Choose how many items are shown",
         "options": [
-          { "label": "10", "value": 10000 },
-          { "label": "25", "value": 50000 },
-          { "label": "50", "value": 500 }
+          {
+            "label": "10000",
+            "value": 10000
+          },
+          {
+            "label": "50000",
+            "value": 50000
+          },
+          {
+            "label": "500",
+            "value": 500
+          }
         ]
-      }
+      },
+      "id": "d191",
+      "value": "10000"
     },
-     {
+    {
       "key": "vibe_mode",
       "label": "Change vibe",
       "type": "Toggle",
-      "roles": ["User"],
+      "roles": [
+        "User"
+      ],
       "group": "General",
-      "value": false,
+      "value": true,
       "metadata": {
         "tooltip": "Switch between font size"
-      }
+      },
+      "id": "2160"
     },
     {
       "key": "site_title",
       "label": "Site Title",
       "type": "Text",
-      "roles": ["Admin"],
+      "roles": [
+        "Admin"
+      ],
       "group": "General",
-      "value": "My Awesome App",
+      "value": "WOW",
       "metadata": {
         "required": true,
         "tooltip": "Displayed in the browser tab",
         "min": 5,
         "max": 30
-      }
+      },
+      "id": "6998"
     }
-    
   ]
 }

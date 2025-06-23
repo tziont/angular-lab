@@ -1,5 +1,5 @@
 <div class="container">
 <label for="{{key}}">{{label}}</label>
-<textarea [formControl]="textControl" id="{{key}}" value="{{value}}">{{value}}</textarea> 
+<textarea [formControl]="control" [id]="key"></textarea> 
 <small *ngIf="!!isModified">this field has been modified</small>
 </div>

@@ -40,6 +40,7 @@ export type SelectMetadata = {
 }
 
 export interface IBaseSetting {
+    id: string;
     key: string;
     label: string;
     roles:Role[];

@@ -1,7 +1,7 @@
 <div class="container">
 <label for="{{key}}">{{label}}</label>
-<select [formControl]="selectControll" id="{{key}}">
-    <option >--Please choose an option--</option>
+<select [formControl]="control" [id]="key">
+    <option value="null">--Please choose an option--</option>
     <option *ngFor="let option of options" [value]="option.value">{{option.label}}</option>
 </select>
 <small *ngIf="!!isModified">this field has been modified</small>

@@ -1,1 +1,15 @@
-<app-task [settings] = 'settings' (click)="showTask()"></app-task>
+<app-task
+  [isGeneralOpen]="false"
+  [isAppearanceOpen]="false"
+  [isDisplayOpen]="false"
+  [isContainerOpen]="false"
+  [isPermite]="false"
+  [isShowDisplay]="false"
+  [isShowAppearance]="false"
+  [isShowGeneral]="false"
+  [settings]="settings"
+  [form]="form"
+  [role]="role"
+  (saveSettings)="saveSettings()"
+  (click)="showTask()"
+></app-task>

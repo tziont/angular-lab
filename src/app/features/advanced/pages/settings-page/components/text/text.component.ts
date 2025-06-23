@@ -8,30 +8,20 @@ import { FormControl } from '@angular/forms';
   templateUrl: './text.component.html',
   styleUrl: './text.component.scss',
 })
-export class TextComponent implements AfterViewInit, OnInit {
+export class TextComponent implements  OnInit {
   @Input()
   key!: string;
   @Input()
   label!: string;
   @Input()
-  roles!: string[];
-  @Input()
-  group?: string;
-  @Input()
   value!: Value;
+  @Input()
+  control!: FormControl;
   isModified: boolean | undefined;
 
-  textControl = new FormControl();
-
   ngOnInit(): void {
-    this.textControl.valueChanges.subscribe((value) =>{
-      console.log('Text value: ', value);
-    this.isModified = this.textControl.dirty;
-    console.log('Is dirty:', this.isModified);
-  });
-    
-  }
-  ngAfterViewInit(): void {
-    this.textControl.setValue(this.value);
+    this.control.valueChanges.subscribe((value) => {
+      this.isModified = this.control.dirty;
+    });
   }
 }
