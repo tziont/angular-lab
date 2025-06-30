@@ -22,7 +22,6 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
 })
-
 export class TaskComponent implements OnChanges {
   @Input() settings: Settings | undefined;
   @Input() form!: FormGroup;
@@ -73,7 +72,13 @@ export class TaskComponent implements OnChanges {
   creatingComponentsByType() {
     if (!!this.settings && this.settings.length) {
       this.isContainerOpen = true;
+      const grouped= new Map<string, Setting[]>();
       this.settings.forEach((element) => {
+        const { group } = element;
+        if (!grouped.has(group)) {
+          grouped.set(group,[]);
+        }
+        grouped.get(group)!.push(element);
         this.updateGroupMap(element);
         if (this.checkPermission(element)) {
           switch (element.type.toLowerCase()) {
@@ -94,7 +99,6 @@ export class TaskComponent implements OnChanges {
             case 'text':
               const textComponent = this.selectComponentAndGroup(
                 TextComponent,
-
                 element
               );
               this.setBasicInputs(textComponent, element);
@@ -133,7 +137,7 @@ export class TaskComponent implements OnChanges {
     compRef.changeDetectorRef.detectChanges(); // force Angular to update input
     return compRef;
   }
-  
+
   selectComponentAndGroup(component: any, element: Setting) {
     const control = new FormControl(element.value ?? null);
     if (!this.form.contains(element.key)) {
