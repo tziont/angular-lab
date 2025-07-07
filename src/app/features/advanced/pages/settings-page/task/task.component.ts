@@ -3,18 +3,35 @@ import {
   Input,
   Output,
   EventEmitter,
-  ViewChild,
+  ViewChildren,
+  ElementRef,
+  QueryList,
   ViewContainerRef,
   OnChanges,
+  AfterViewInit,
   SimpleChanges,
+  Type,
+  ChangeDetectorRef,
   ComponentRef,
 } from '@angular/core';
 
-import { Settings, Setting, Role } from '../../../../../types/setting.model';
+import {
+  Settings,
+  Setting,
+  Role,
+  SettingType,
+} from '../../../../../types/setting.model';
+
 import { TextComponent } from '../components/text/text.component';
 import { ToggleComponent } from '../components/toggle/toggle.component';
 import { SelectComponent } from '../components/select/select.component';
 import { FormControl, FormGroup } from '@angular/forms';
+
+const COMPONENT_MAP: Record<SettingType, Type<any>> = {
+  [SettingType.Toggle]: ToggleComponent,
+  [SettingType.Text]: TextComponent,
+  [SettingType.Select]: SelectComponent,
+};
 
 @Component({
   selector: 'app-task',
@@ -22,43 +39,46 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
 })
-export class TaskComponent implements OnChanges {
+export class TaskComponent implements AfterViewInit, OnChanges {
   @Input() settings: Settings | undefined;
   @Input() form!: FormGroup;
-  @Input() isGeneralOpen!: boolean;
-  @Input() isAppearanceOpen!: boolean;
-  @Input() isDisplayOpen!: boolean;
-  @Input() isContainerOpen!: boolean;
-  @Input() isShowDisplay!: boolean;
-  @Input() isPermite!: boolean;
-  @Input() isShowAppearance!: boolean;
-  @Input() isShowGeneral!: boolean;
   @Input() role!: Role;
   @Output() click = new EventEmitter<void>();
   @Output() saveSettings = new EventEmitter<void>();
 
-  settingsMap = new Map<string, Setting>();
+  @ViewChildren('groupHost', { read: ViewContainerRef })
+  viewContainers!: QueryList<ViewContainerRef>;
 
-  @ViewChild('display', { read: ViewContainerRef })
-  display!: ViewContainerRef;
-  @ViewChild('appearance', { read: ViewContainerRef })
-  appearance!: ViewContainerRef;
-  @ViewChild('general', { read: ViewContainerRef })
-  general!: ViewContainerRef;
+  expanderStates: Record<string, boolean> = {};
+  groupedMap = new Map<string, Setting[]>();
+  settingsChanged = false;
+  viewReady = false;
+  groupedArrayData: Array<{ name: string; group: Setting[] }> = [];
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['settings']) {
-      this.creatingComponentsByType();
+      this.settingsChanged = true;
+      if (this.viewReady) {
+        this.updateAndRender();
+      }
     }
-    if (this.appearance && this.appearance.length) {
-      this.isShowAppearance = true;
+  }
+
+  ngAfterViewInit(): void {
+    this.viewReady = true;
+    if (this.settingsChanged) {
+      this.updateAndRender();
     }
-    if (this.display && this.display.length) {
-      this.isShowDisplay = true;
-    }
-    if (this.general && this.general.length) {
-      this.isShowGeneral = true;
-    }
+  }
+
+  // New method to update grouped data, detect changes, then create components:
+  private updateAndRender() {
+    this.updateGroupedData(); // Step 1: update grouped data array
+    this.cdr.detectChanges(); // Step 2: let Angular render ng-templates
+    this.creatingComponentsByType(); // Step 3: create dynamic components inside containers
+    this.settingsChanged = false;
   }
 
   getSetting() {
@@ -69,102 +89,75 @@ export class TaskComponent implements OnChanges {
     this.saveSettings.emit();
   }
 
-  creatingComponentsByType() {
-    if (!!this.settings && this.settings.length) {
-      this.isContainerOpen = true;
-      const grouped= new Map<string, Setting[]>();
-      this.settings.forEach((element) => {
-        const { group } = element;
-        if (!grouped.has(group)) {
-          grouped.set(group,[]);
-        }
-        grouped.get(group)!.push(element);
-        this.updateGroupMap(element);
-        if (this.checkPermission(element)) {
-          switch (element.type.toLowerCase()) {
-            case 'select':
-              const selectedComponent = this.selectComponentAndGroup(
-                SelectComponent,
-                element
-              );
-              this.setBasicInputs(selectedComponent, element);
-              break;
-            case 'toggle':
-              const toggleComponent = this.selectComponentAndGroup(
-                ToggleComponent,
-                element
-              );
-              this.setBasicInputs(toggleComponent, element);
-              break;
-            case 'text':
-              const textComponent = this.selectComponentAndGroup(
-                TextComponent,
-                element
-              );
-              this.setBasicInputs(textComponent, element);
-          }
-        }
-      });
+  updateGroupedData() {
+    if (!this.settings) return;
+
+    this.groupedMap.clear();
+    this.settings.forEach((element) => {
+      const { group } = element;
+      if (!this.groupedMap.has(group)) {
+        this.groupedMap.set(group, []);
+      }
+      this.groupedMap.get(group)!.push(element);
+    });
+
+    this.groupedArrayData = Array.from(this.groupedMap.entries()).map(
+      ([name, group]) => ({
+        name,
+        group,
+      })
+    );
+
+    this.expanderStates = {};
+    for (const groupName of this.groupedMap.keys()) {
+      this.expanderStates[groupName] = false;
     }
   }
 
-  toggleExpander(group: string): void {
-    switch (group) {
-      case 'general':
-        this.isGeneralOpen = !this.isGeneralOpen;
-        break;
-      case 'appearance':
-        this.isAppearanceOpen = !this.isAppearanceOpen;
-        break;
-      case 'display':
-        this.isDisplayOpen = !this.isDisplayOpen;
+  creatingComponentsByType() {
+    if (!this.settings || !this.settings.length) return;
+
+    const entries = Array.from(this.groupedMap.entries());
+    entries.forEach(([groupName, items], index) => {
+      const container = this.viewContainers.get(index);
+      if (!container) return;
+
+      container.clear(); // clear old components before adding new ones
+
+      items.forEach((element) => {
+        if (!this.checkPermission(element)) return;
+
+        const component = this.getComponentByType(element.type);
+        if (!component) return;
+
+        const control = new FormControl(element.value ?? null);
+        if (!this.form.contains(element.key)) {
+          this.form.addControl(element.key, control);
+        }
+        const ref = container.createComponent(component);
+        this.setInputs(ref, element, control);
+      });
+    });
+  }
+
+  setInputs(ref: ComponentRef<any>, element: Setting, control: FormControl) {
+    ref.setInput('control', control);
+    ref.setInput('key', element.key);
+    ref.setInput('label', element.label);
+    if (element.metadata && 'options' in element.metadata) {
+      ref.setInput('options', element.metadata.options || []);
     }
   }
-  //TBD check how to do that using map
+
+  toggleExpander(groupName: string): void {
+    this.expanderStates[groupName] = !this.expanderStates[groupName];
+  }
+
+  getComponentByType(type: SettingType): Type<any> | null {
+    return COMPONENT_MAP[type];
+  }
+
   checkPermission(element: Setting) {
     return element.roles.includes(this.role);
-  }
-
-  createComponent(
-    component: any,
-    control: FormControl,
-    container: ViewContainerRef
-  ) {
-    // 👇 Just create the component — DO NOT pass control here
-    const compRef = container.createComponent(component);
-    // 👇 Then assign the control
-    (compRef.instance as any).control = control;
-    compRef.changeDetectorRef.detectChanges(); // force Angular to update input
-    return compRef;
-  }
-
-  selectComponentAndGroup(component: any, element: Setting) {
-    const control = new FormControl(element.value ?? null);
-    if (!this.form.contains(element.key)) {
-      this.form.addControl(element.key, control);
-    }
-    const container =
-      element.group.toLocaleLowerCase() === 'general'
-        ? this.general
-        : element.group.toLocaleLowerCase() === 'appearance'
-        ? this.appearance
-        : this.display;
-
-    return this.createComponent(component, control, container);
-  }
-
-  updateGroupMap(element: Setting) {
-    if (!this.settingsMap.has(element.key)) {
-      this.settingsMap.set(element.key, element);
-    }
-  }
-
-  setBasicInputs(componentRef: ComponentRef<any>, element: Setting) {
-    componentRef.setInput('key', element.key);
-    componentRef.setInput('label', element.label);
-    componentRef.setInput('value', element.value);
-    if (element.metadata && 'options' in element.metadata) {
-      componentRef.setInput('options', element.metadata?.options || []);
-    }
   }
 }
