@@ -12,7 +12,8 @@
       "metadata": {
         "tooltip": "Switch between light and dark themes"
       },
-      "id": "f194"
+      "id": "f194",
+      "value": true
     },
     {
       "key": "items_per_page",
@@ -55,7 +56,7 @@
         "User"
       ],
       "group": "Appearance",
-      "value": false,
+      "value": true,
       "metadata": {
         "tooltip": "Switch between font size"
       },
@@ -70,7 +71,7 @@
         "User"
       ],
       "group": "General",
-      "value": "WOW that is WOW",
+      "value": "WOW ",
       "metadata": {
         "required": true,
         "tooltip": "Displayed in the browser tab",
@@ -130,7 +131,7 @@
         "User"
       ],
       "group": "General",
-      "value": true,
+      "value": false,
       "metadata": {
         "tooltip": "Switch between font size"
       },
@@ -144,7 +145,7 @@
         "Admin"
       ],
       "group": "General",
-      "value": "WOW",
+      "value": "what?",
       "metadata": {
         "required": true,
         "tooltip": "Displayed in the browser tab",

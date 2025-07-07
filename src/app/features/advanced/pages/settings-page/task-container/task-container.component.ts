@@ -12,29 +12,25 @@ import { Settings, Setting, Role } from '../../../../../types/setting.model';
 export class TaskContainerComponent implements OnInit {
   @ViewChild('container', { read: ViewContainerRef })
   container!: ViewContainerRef;
-  role = Role.Admin;
+  role = Role.User;
   settings!: Settings;
-  settingsSubscription!: Subscription;
-
   form!: FormGroup;
-
   settings$!: Observable<Settings>;
 
-  constructor(private getTaskSetting: SettingTaskService) {}
+  constructor(private settingTaskService: SettingTaskService) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({});
   }
   showTask(): void {
-    if (!this.settingsSubscription) {
-      this.settingsSubscription = this.getTaskSetting
+      this.settingTaskService
         .getSettings()
         .subscribe((data) => {
           this.settings = data;
         });
-      console.log('fecth data');
-    }
   }
+
+
   saveSettings() {
     const values = this.form.getRawValue();
     this.settings.forEach((setting) => {
@@ -44,7 +40,7 @@ export class TaskContainerComponent implements OnInit {
           ...setting,
           value: values[setting.key],
         };
-        this.getTaskSetting.saveSettings(updatedSetting).subscribe();
+        this.settingTaskService.saveSettings(updatedSetting).subscribe();
       }
     });
   }
