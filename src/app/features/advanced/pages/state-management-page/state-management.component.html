@@ -1,0 +1,29 @@
+<div class="container">
+  <h1>State Management without NgRx</h1>
+
+  <section class="overview">
+    <p>
+      In this section, we’ll explore Angular-native approaches to managing application state without relying on heavy libraries like NgRx.
+      You’ll learn how to use services, RxJS, and the new Signals API to create clean, scalable, and testable state layers.
+    </p>
+    <p>
+      We'll cover managing local state using Signals inside components, lifting shared state into services using RxJS or Signals, 
+      and applying global state patterns — all while handling loading, success, and error flows.
+    </p>
+    <p>
+      You’ll also compare<code>Signals</code>  and <code>BehaviorSubjects</code> to understand when and why to use each.
+    </p>
+  </section>
+
+  <section class="topics">
+    <h2>Sub-Topics</h2>
+    <ul>
+      <li><a routerLink="component-state">Component-Level Signals</a></li>
+      <li><a routerLink="service-state">Service-Based State with Signals</a></li>
+      <li><a routerLink="rxjs-vs-signals">RxJS vs Signals Comparison</a></li>
+      <li><a routerLink="global-pattern">Global App State Pattern</a></li>
+    </ul>
+  </section>
+  <router-outlet></router-outlet>
+
+</div>

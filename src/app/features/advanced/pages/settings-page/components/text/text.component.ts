@@ -25,10 +25,11 @@ export class TextComponent implements OnInit, OnDestroy {
   isModified: boolean | undefined;
   destroy$ = new Subject<void>();
   ngOnInit(): void {
+    const initialValue = this.control.value;
     this.control.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
-        this.isModified = this.control.dirty;
+        this.isModified = value !== initialValue;
       });
   }
   ngOnDestroy() {

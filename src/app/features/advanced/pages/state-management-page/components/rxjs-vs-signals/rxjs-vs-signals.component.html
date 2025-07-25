@@ -1,0 +1,38 @@
+<div class="container">
+  <h2>RxJS vs Signals Comparison</h2>
+
+  <section class="intro">
+    <h3>When to Use Signals vs RxJS</h3>
+    <p>
+      Both Signals and RxJS are powerful tools for managing state and reactivity in Angular. 
+      They can sometimes overlap in use, but they serve different core purposes.
+    </p>
+    <ul>
+      <li><strong>Signals</strong> are ideal for <em>local synchronous state</em> inside components or services.</li>
+      <li><strong>RxJS</strong> shines in <em>asynchronous and event-based</em> flows — like HTTP calls or streams.</li>
+    </ul>
+
+    <p>
+      Signals are simpler and integrate directly with Angular change detection, while RxJS gives you more control 
+      with operators and streams.
+    </p>
+
+    <ul>
+      <li>Signals are pull-based — you read them like variables.</li>
+      <li>RxJS is push-based — values are emitted over time.</li>
+      <li>Use both together for a balanced, scalable architecture.</li>
+    </ul>
+  </section>
+
+  <section class="example">
+    <p>This example shows a service that provides the same counter using both Signals and RxJS.</p>
+
+    <div class="box">
+      <p><strong>Signal Count:</strong> {{ counterService.count() }}</p>
+      <p><strong>RxJS Count:</strong> {{ rxCount }}</p>
+
+      <button (click)="counterService.increment()">Increment</button>
+      <button (click)="counterService.reset()">Reset</button>
+    </div>
+  </section>
+</div>
