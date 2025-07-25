@@ -1,0 +1,38 @@
+<div class="container">
+  <h2>Component-Level Signals</h2>
+
+  <section class="intro">
+    <h3>What is a Signal?</h3>
+    <p>
+      <strong>Signals</strong> are Angular’s built-in way to manage reactive state — think of them as <em>reactive variables</em>.
+      When a signal’s value changes, Angular automatically updates everything that depends on it.
+    </p>
+    <ul>
+      <li> Lightweight and simple</li>
+      <li> Fully tracked by Angular</li>
+      <li> Works smoothly with <code>OnPush</code> change detection</li>
+    </ul>
+    <p>
+      You can:
+    </p>
+    <ul>
+      <li><strong>Create</strong> a signal: <code>const count = signal(0)</code></li>
+      <li><strong>Read</strong> the value by calling it: <code>count()</code></li>
+      <li><strong>Update</strong> it: <code>count.set(1)</code> or <code>count.update(v => v + 1)</code></li>
+    </ul>
+    <p>
+      Unlike a regular <code>let</code>, Signals notify Angular when they change — so your UI stays in sync automatically.
+    </p>
+  </section>
+
+  <section class="example">
+    <p>This example shows a local signal used for managing state inside the component.</p>
+
+    <div class="box">
+      <p>Counter: {{ counter() }}</p>
+
+      <button (click)="increment()">Increment</button>
+      <button (click)="reset()">Reset</button>
+    </div>
+  </section>
+</div>

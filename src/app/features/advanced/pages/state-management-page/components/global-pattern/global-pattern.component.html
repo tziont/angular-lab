@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>Global App State Pattern</h2>
+
+  <section class="intro">
+    <h3>Why Use a Global App State?</h3>
+    <p>
+      In larger applications, it’s helpful to centralize shared state in a single service. This is similar in spirit to a 
+      global store like NgRx, but much lighter. Signals allow us to keep things simple and reactive.
+    </p>
+    <ul>
+      <li> Centralized control over application-wide data</li>
+      <li> State can be read and updated from anywhere via DI</li>
+      <li> Easier to debug and reason about shared behavior</li>
+    </ul>
+
+    <p>
+      This example shows a shared <code>AppStateService</code> that holds multiple signals, such as the current user 
+      and theme. Other components can safely access or react to this state without managing it themselves.
+    </p>
+
+    <ul>
+      <li><code>user = signal&lt;User | null&gt;(null)</code></li>
+      <li><code>theme = signal('light')</code></li>
+      <li>Setter and reset methods for each field</li>
+    </ul>
+  </section>
+
+  <section class="example">
+    <p>This example demonstrates a shared app-wide state accessed from a feature component.</p>
+
+    <div class="box">
+      <p>Theme: {{ appState.theme() }}</p>
+      <p>User: {{ appState.user()?.name || 'Anonymous' }}</p>
+
+      <button (click)="appState.toggleTheme()">Toggle Theme</button>
+      <button (click)="appState.login({ name: 'Tzion' })">Login</button>
+      <button (click)="appState.logout()">Logout</button>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>Service-Based State with Signals</h2>
+
+  <section class="intro">
+    <h3>Why use a Service?</h3>
+    <p>
+      While component-level signals are great for local state, we use <strong>services</strong> when state needs to be shared 
+      across components — or when we want to separate logic from the UI.
+    </p>
+    <p>
+      In this example, we manage the counter in a shared service using a Signal, and expose it with <code>asReadonly()</code> 
+      so other components can safely use it without mutating it directly.
+    </p>
+    <ul>
+      <li> State is shared and reusable</li>
+      <li> Clean separation between logic and view</li>
+      <li> Works with <code>OnPush</code> and Signals out of the box</li>
+    </ul>
+    <p>
+      The service holds:
+    </p>
+    <ul>
+      <li>A private Signal: <code>private _count = signal(0)</code></li>
+      <li>A public readonly signal: <code>count = _count.asReadonly()</code></li>
+      <li>Update methods like <code>increment()</code> and <code>reset()</code></li>
+    </ul>
+  </section>
+
+  <section class="example">
+    <p>This example shows how to share state using a service with Signals.</p>
+
+    <div class="box">
+      <p>Counter: {{ counterService.count() }}</p>
+
+      <button (click)="counterService.increment()">Increment</button>
+      <button (click)="counterService.reset()">Reset</button>
+    </div>
+  </section>
+</div>
+
