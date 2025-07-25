@@ -1,9 +1,10 @@
-<button (click)="getSetting()">Get settings</button>
+<!-- Optional dev button, place safely away from expander area -->
+<button type="button" (click)="getSetting()">Load settings from server</button>
 
 <div class="container">
   <form [formGroup]="form">
     <ng-container *ngFor="let item of groupedArrayData">
-      <div class="expander" [class.show]="true"> <!-- or use any show condition -->
+      <div class="expander" [class.show]="true">
         <div class="group-title">
           <h3>{{ item.name }}</h3>
           <button type="button" (click)="toggleExpander(item.name)">

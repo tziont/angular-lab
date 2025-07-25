@@ -12,8 +12,7 @@
       "metadata": {
         "tooltip": "Switch between light and dark themes"
       },
-      "id": "f194",
-      "value": true
+      "id": "f194"
     },
     {
       "key": "items_per_page",
@@ -56,7 +55,7 @@
         "User"
       ],
       "group": "Appearance",
-      "value": true,
+      "value": false,
       "metadata": {
         "tooltip": "Switch between font size"
       },
@@ -71,7 +70,7 @@
         "User"
       ],
       "group": "General",
-      "value": "WOW ",
+      "value": "WOW i made it agai",
       "metadata": {
         "required": true,
         "tooltip": "Displayed in the browser tab",
@@ -120,8 +119,7 @@
           }
         ]
       },
-      "id": "d191",
-      "value": "10000"
+      "id": "d191"
     },
     {
       "key": "vibe_mode",
@@ -131,7 +129,7 @@
         "User"
       ],
       "group": "General",
-      "value": false,
+      "value": true,
       "metadata": {
         "tooltip": "Switch between font size"
       },
@@ -145,7 +143,6 @@
         "Admin"
       ],
       "group": "General",
-      "value": "what?",
       "metadata": {
         "required": true,
         "tooltip": "Displayed in the browser tab",
