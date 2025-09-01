@@ -7,11 +7,12 @@ import { routes } from './app.routes';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoggingInterceptor } from './core/interceptors/logging-interceptor.service';
 import { ErrorHandlingInterceptor } from './core/interceptors/error-handling-interceptor.service';
+import { AuthInterceptor } from './core/interceptors/auth.-interceptor.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ],
+       ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -26,6 +27,11 @@ import { ErrorHandlingInterceptor } from './core/interceptors/error-handling-int
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlingInterceptor,
+      multi: true
+    },
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true
     }
   ],

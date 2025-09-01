@@ -7,7 +7,10 @@ import {
 import { SettingTaskService } from '../../../../../core/services/setting-task.service';
 import { Observable, Subscription } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { Settings, Role } from '../../../../../types/setting.model';
+import { Settings,Role} from '../../../../../types/setting.model';
+import { AuthService } from '../../../../../core/services/auth.service';
+import { TestService } from '../../../../../core/services/test.service';
+import { User} from '../../../../../types/user.model';
 
 @Component({
   selector: 'app-task-container',
@@ -18,26 +21,43 @@ import { Settings, Role } from '../../../../../types/setting.model';
 export class TaskContainerComponent implements OnInit {
   @ViewChild('container', { read: ViewContainerRef })
   container!: ViewContainerRef;
-  role = Role.User;
+  role!:Role;  
   settings!: Settings;
   form!: FormGroup;
   settings$!: Observable<Settings>;
   prevFormValues!: any;
-  constructor(private settingTaskService: SettingTaskService) {}
+  errorMessage="";
+  constructor(private settingTaskService: SettingTaskService, private authService: AuthService,private testService:TestService) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({});
+    this.role = this.authService.getUser()?.role ?? 'User';
+    console.log('Role------------------->',this.role);
   }
 
   showTask(): void {
-    this.settingTaskService.getSettings().subscribe((data) => {
+// just a temp test for auth interseptor
+this.testService.getProtected().subscribe({
+  next: (res) => console.log('Protected response:', res),
+  error: (err) => console.error('Protected error:', err),
+});
+// end test
+    this.settingTaskService.getSettings().subscribe({
+      next:(data) => {
       this.settings = data;
       // ✅ Save the original values as reference
       this.prevFormValues = data.reduce((acc, setting) => {
         acc[setting.key] = setting.value;
         return acc;
       }, {} as Record<string, any>);
-    });
+    },
+  error:(err) => {
+        if (err.status === 403) {
+          this.errorMessage = 'You are not authorized to view settings.';
+        } else {
+          this.errorMessage = 'Something went wrong. Please try again later.';
+        }
+      }});
   }
 
   saveSettings() {
