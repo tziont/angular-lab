@@ -37,10 +37,21 @@ onSubmit(): void {
 
   this.loginService.login(credentials).subscribe({
     next: (response) => {
-      this.authService.saveToken(response.token);
-      this.authService.saveUser(response.user); // <-- now storing the user
+      // Save access token
+      this.authService.saveToken(response.accessToken);
+
+      // ✅ Save refresh token
+      if (response.refreshToken) {
+        this.authService.saveRefreshToken(response.refreshToken);
+      }
+
+      // Save user
+      this.authService.saveUser(response.user);
+
       this.errorMessage = '';
       console.log('Login successful');
+
+      // Navigate to default page
       this.router.navigate(['/home']);
     },
     error: (err) => {
@@ -49,5 +60,6 @@ onSubmit(): void {
     },
   });
 }
+
 
 }

@@ -1,16 +1,18 @@
 // angular-lab-server/index.js
 const express = require('express');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
+const axios = require('axios');
 
 const app = express();
-const PORT = 3001; // Using a named constant instead of hardcoding
-const SECRET_KEY = 'mysecretkey';
+const PORT = process.env.PORT || 3001;
+
+const { verifyToken, SECRET_KEY } = require('./middleware/auth'); // import middleware
+require('dotenv').config(); // load .env
 
 app.use(cors());
 app.use(express.json());
 
-const axios = require('axios');
+let refreshTokens = [];
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
@@ -20,13 +22,28 @@ app.post('/login', async (req, res) => {
     const users = response.data;
 
     const user = users.find(u => u.username === username && u.password === password);
-
     if (!user) return res.status(401).json({ message: 'Invalid credentials' });
 
-    const token = jwt.sign({ username: user.username, role: user.role }, SECRET_KEY);
+    // short-lived access token
+    const accessToken = require('jsonwebtoken').sign(
+      { username: user.username, role: user.role },
+      SECRET_KEY,
+      { expiresIn: process.env.ACCESS_TOKEN_EXPIRES || '15m' }
+    );
+
+    // long-lived refresh token
+    const refreshToken = require('jsonwebtoken').sign(
+      { username: user.username, role: user.role },
+      process.env.REFRESH_SECRET || 'myrefreshsecret',
+      { expiresIn: process.env.REFRESH_TOKEN_EXPIRES || '7d' }
+    );
+
+    // store refresh token in memory
+    refreshTokens.push(refreshToken);
 
     res.json({
-      token: token,
+      accessToken,
+      refreshToken,
       user: {
         id: user.id,
         username: user.username,
@@ -39,40 +56,46 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.get('/settings', async (req, res) => {
-  const authHeader = req.headers['authorization'];
-  if (!authHeader) return res.status(401).json({ message: 'No token provided' });
 
-  const token = authHeader.split(' ')[1];
+app.post('/token', (req, res) => {
+  const { accessToken } = req.body; // the refresh token sent by the client
+  if (!token) return res.status(401).json({ message: 'No token provided' });
+  if (!refreshTokens.includes(accessToken)) return res.status(403).json({ message: 'Invalid refresh token' });
+
   try {
-    const decoded = jwt.verify(token, SECRET_KEY);
+    const decoded = require('jsonwebtoken').verify(token, process.env.REFRESH_SECRET || 'myrefreshsecret');
+
+    const accessToken = require('jsonwebtoken').sign(
+      { username: decoded.username, role: decoded.role },
+      SECRET_KEY,
+      { expiresIn: process.env.ACCESS_TOKEN_EXPIRES || '15m' }
+    );
+
+    res.json({ accessToken });
+  } catch (err) {
+    return res.status(403).json({ message: 'Invalid refresh token' });
+  }
+});
+
+
+// SETTINGS route (protected)
+app.get('/settings', verifyToken, async (req, res) => {
+  try {
+    const user = req.user; // <-- set by middleware
 
     // Only allow Admin or Editor
-    if (!['Admin', 'Editor'].includes(decoded.role)) {
+    if (!['Admin', 'Editor'].includes(user.role)) {
       return res.status(403).json({ message: 'Forbidden: insufficient role' });
     }
 
-    // Fetch settings from json-server
     const response = await axios.get('http://localhost:3000/settings');
     res.json(response.data);
   } catch (err) {
-    res.status(403).json({ message: 'Invalid token' });
+    res.status(500).json({ message: 'Server error fetching settings' });
   }
 });
 
-//just to check that the auth interceptor is working
-app.get('/protected', (req, res) => {
-  const authHeader = req.headers['authorization'];
-  if (!authHeader) return res.status(401).json({ message: 'No token provided' });
 
-  const token = authHeader.split(' ')[1];
-  try {
-    const decoded = jwt.verify(token, SECRET_KEY);
-    res.json({ message: 'Token valid!', user: decoded });
-  } catch (err) {
-    res.status(403).json({ message: 'Invalid token' });
-  }
-});
 
 
 app.listen(PORT, () => {
