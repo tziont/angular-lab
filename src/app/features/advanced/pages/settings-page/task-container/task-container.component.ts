@@ -9,7 +9,6 @@ import { Observable, Subscription } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { Settings,Role} from '../../../../../types/setting.model';
 import { AuthService } from '../../../../../core/services/auth.service';
-import { TestService } from '../../../../../core/services/test.service';
 import { User} from '../../../../../types/user.model';
 
 @Component({
@@ -27,7 +26,7 @@ export class TaskContainerComponent implements OnInit {
   settings$!: Observable<Settings>;
   prevFormValues!: any;
   errorMessage="";
-  constructor(private settingTaskService: SettingTaskService, private authService: AuthService,private testService:TestService) {}
+  constructor(private settingTaskService: SettingTaskService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({});
@@ -36,12 +35,6 @@ export class TaskContainerComponent implements OnInit {
   }
 
   showTask(): void {
-// just a temp test for auth interseptor
-this.testService.getProtected().subscribe({
-  next: (res) => console.log('Protected response:', res),
-  error: (err) => console.error('Protected error:', err),
-});
-// end test
     this.settingTaskService.getSettings().subscribe({
       next:(data) => {
       this.settings = data;
