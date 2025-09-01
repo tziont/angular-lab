@@ -40,6 +40,7 @@ const COMPONENT_MAP: Record<SettingType, Type<any>> = {
 })
 export class TaskComponent implements AfterViewInit, OnChanges {
   @Input() settings: Settings | undefined;
+  @Input() errorMessage!: string
   @Input() form!: FormGroup;
   @Input() role!: Role;
   @Output() requestSettings = new EventEmitter<void>();
@@ -155,6 +156,7 @@ export class TaskComponent implements AfterViewInit, OnChanges {
   }
 
   checkPermission(element: Setting) {
+    console.log('element.roles',element.roles)
     return element.roles.includes(this.role);
   }
 
