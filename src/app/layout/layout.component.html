@@ -2,6 +2,9 @@
     <app-navbar class="sidebar"></app-navbar>
 <div class="content">
     <app-breadcrumb></app-breadcrumb>
+    <header>
+    <p *ngIf="user">Welcome {{ user.username }}!</p>
+  </header>
     <router-outlet></router-outlet>
 </div>
 
