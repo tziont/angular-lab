@@ -1,8 +1,4 @@
-export enum Role {
-Admin = 'Admin',
-Editor = 'Editor',
-User = 'User',
-}
+export type Role = string;
 
 export enum SettingType{
     Toggle = 'Toggle',

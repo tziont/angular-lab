@@ -1,6 +1,6 @@
 <!-- Optional dev button, place safely away from expander area -->
 <button type="button" (click)="getSetting()">Load settings from server</button>
-
+{{errorMessage}}
 <div class="container">
   <form [formGroup]="form">
     <ng-container *ngFor="let item of groupedArrayData">

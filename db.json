@@ -55,7 +55,7 @@
         "User"
       ],
       "group": "Appearance",
-      "value": false,
+      "value": true,
       "metadata": {
         "tooltip": "Switch between font size"
       },
@@ -126,7 +126,7 @@
       "label": "Change vibe",
       "type": "Toggle",
       "roles": [
-        "User"
+        "Editor","Admin"
       ],
       "group": "General",
       "value": true,
@@ -151,5 +151,27 @@
       },
       "id": "6998"
     }
-  ]
+  ],
+ "users": [
+  {
+    "id": 1,
+    "username": "Tzion",
+    "password": "admin123",
+    "role": "Admin"
+  },
+  {
+    "id": 2,
+    "username": "Dud",
+    "password": "editor123",
+    "role": "Editor"
+  },
+  {
+    "id": 3,
+    "username": "User",
+    "password": "user123",
+    "role": "User"
+  }
+]
+
+
 }
