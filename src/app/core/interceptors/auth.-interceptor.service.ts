@@ -6,7 +6,7 @@ import {
   HttpEvent,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, throwError, switchMap, catchError } from 'rxjs';
+import { Observable, throwError, switchMap, catchError, tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
@@ -25,21 +25,28 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     return next.handle(authReq).pipe(
+      tap(event => console.log('Request sent with token:', authReq.headers.get('Authorization'))),
       catchError((error: HttpErrorResponse) => {
+        console.log('Request error status:', error.status);
         // If 401 and refresh token exists
         if (error.status === 401 && this.authService.getRefreshToken()) {
+          console.log('401 detected, refreshing token...');
           return this.authService.refreshToken().pipe(
-            switchMap(() => {
-              const newToken = this.authService.getToken();
+            switchMap((res: any) => {
+              const newToken = res.accessToken;
+              this.authService.saveToken(newToken); // ✅ save the new token
+              console.log('New token received:', newToken);
+
               const newReq = req.clone({
                 setHeaders: { Authorization: `Bearer ${newToken}` },
               });
               return next.handle(newReq);
             }),
-            catchError(() => {
+            catchError((err) => {
+              console.log('Refresh failed:', err);
               // Refresh failed → logout
               this.authService.logout();
-              return throwError(() => error);
+              return throwError(() => err);
             })
           );
         }
