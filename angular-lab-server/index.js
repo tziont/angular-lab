@@ -28,7 +28,7 @@ app.post('/login', async (req, res) => {
     const accessToken = require('jsonwebtoken').sign(
       { username: user.username, role: user.role },
       SECRET_KEY,
-      { expiresIn: process.env.ACCESS_TOKEN_EXPIRES || '15m' }
+      { expiresIn: process.env.ACCESS_TOKEN_EXPIRES || '15m'}
     );
 
     // long-lived refresh token
@@ -58,9 +58,9 @@ app.post('/login', async (req, res) => {
 
 
 app.post('/token', (req, res) => {
-  const { accessToken } = req.body; // the refresh token sent by the client
+  const { token } = req.body; // ✅ match frontend
   if (!token) return res.status(401).json({ message: 'No token provided' });
-  if (!refreshTokens.includes(accessToken)) return res.status(403).json({ message: 'Invalid refresh token' });
+  if (!refreshTokens.includes(token)) return res.status(403).json({ message: 'Invalid refresh token' });
 
   try {
     const decoded = require('jsonwebtoken').verify(token, process.env.REFRESH_SECRET || 'myrefreshsecret');
@@ -68,7 +68,7 @@ app.post('/token', (req, res) => {
     const accessToken = require('jsonwebtoken').sign(
       { username: decoded.username, role: decoded.role },
       SECRET_KEY,
-      { expiresIn: process.env.ACCESS_TOKEN_EXPIRES || '15m' }
+      { expiresIn: process.env.ACCESS_TOKEN_EXPIRES || '15m'}
     );
 
     res.json({ accessToken });
@@ -76,6 +76,7 @@ app.post('/token', (req, res) => {
     return res.status(403).json({ message: 'Invalid refresh token' });
   }
 });
+
 
 
 // SETTINGS route (protected)
