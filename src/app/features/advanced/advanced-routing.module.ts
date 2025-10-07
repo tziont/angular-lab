@@ -3,12 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdvancedHomeComponent } from './pages/advanced-home/advanced-home.component';
 import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 import { SettingsTaskComponent } from './pages/settings-page/settings-task';
-import { StateManagementComponent } from './pages/state-management-page/state-management';
+import { StateManagementComponent } from './pages/state-management-page/state-management.component';
 import { ComponentStateComponent } from './pages/state-management-page/components/component-state/component-state.component';
 import { ServiceStateComponent } from './pages/state-management-page/components/service-state/service-state.component';
 import { RxjsVsSignalsComponent } from './pages/state-management-page/components/rxjs-vs-signals/rxjs-vs-signals.component';
 import { GlobalPatternComponent } from './pages/state-management-page/components/global-pattern/global-pattern.component';
 import { RoleGuard } from '../../core/guards/role.guard';
+import { NgrxComponent} from './pages/ngrx-page/ngrx.component';
+import { NgrxActionsComponent } from './pages/ngrx-page/components/ngrx-actions/ngrx-actions/ngrx-actions.component';
+import { NgrxReducersComponent } from './pages/ngrx-page/components/ngrx-reducers/ngrx-reducers.component';
+import { NgrxSelectorsComponent } from './pages/ngrx-page/components/ngrx-selectors/ngrx-selectors.component';
 const routes: Routes = [
   {
     path: '',
@@ -35,6 +39,28 @@ const routes: Routes = [
       {
         path: 'rxjs-vs-signals',
         component: RxjsVsSignalsComponent,
+      },
+      {
+        path: 'global-pattern',
+        component: GlobalPatternComponent,
+      },
+    ],
+  },
+  {
+    path: 'ngrx',
+    component: NgrxComponent,
+    children: [
+      {
+        path: 'ngrx-actions',
+        component: NgrxActionsComponent,
+      },
+      {
+        path: 'ngrx-reducers',
+        component: NgrxReducersComponent,
+      },
+      {
+        path: 'ngrx-selectors',
+        component: NgrxSelectorsComponent,
       },
       {
         path: 'global-pattern',
