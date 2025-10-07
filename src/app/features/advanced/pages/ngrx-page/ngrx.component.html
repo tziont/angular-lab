@@ -1,0 +1,41 @@
+<div class="container">
+  <h1>State Management with NgRx</h1>
+
+  <section class="overview">
+    <p>
+      In this section, we’ll explore how to manage state in Angular applications using <strong>NgRx</strong>, 
+      a reactive state management library inspired by Redux. NgRx helps you structure your state, handle side effects, 
+      and keep your application predictable and maintainable.
+    </p>
+    <p>
+      You’ll learn how to define actions, reducers, selectors, and effects, and how to connect them to your Angular components.
+      We’ll cover handling local, shared, and global state, as well as loading, success, and error flows in a reactive manner.
+    </p>
+    <p>
+      By the end of this section, you’ll understand when to use NgRx, how it compares with Angular-native approaches like Signals and RxJS, 
+      and best practices for structuring your state management layer.
+    </p>
+
+    <h2>NgRx Building Blocks</h2>
+    <ul>
+      <li><strong>Actions</strong> → Just messages (like saying “Increment happened!”).</li>
+      <li><strong>Reducers</strong> → The actual logic that updates the state when those messages arrive.</li>
+      <li><strong>Selectors</strong> → A way to read the updated state.</li>
+      <li><strong>Effects</strong> → A way to handle async stuff (like HTTP calls).</li>
+    </ul>
+  </section>
+
+  <section class="topics">
+    <h2>Sub-Topics</h2>
+    <ul>
+      <li><a routerLink="ngrx-actions">NgRx Actions</a></li>
+      <li><a routerLink="ngrx-reducers">NgRx Reducers</a></li>
+      <li><a routerLink="ngrx-selectors">NgRx Selectors</a></li>
+      <li><a routerLink="ngrx-effects">NgRx Effects</a></li>
+      <li><a routerLink="ngrx-vs-signals">NgRx vs Angular Signals</a></li>
+      <li><a routerLink="ngrx-global-pattern">Global App State with NgRx</a></li>
+    </ul>
+  </section>
+
+  <router-outlet></router-outlet>
+</div>

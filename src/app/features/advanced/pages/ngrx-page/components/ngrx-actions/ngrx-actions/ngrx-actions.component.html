@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>NgRx Actions</h1>
+
+  <section class="overview">
+    <p>
+      Actions are plain objects that describe unique events in your application. 
+      They are the only way to express that something happened and should trigger a state change.
+    </p>
+    <p>
+      In NgRx, actions are dispatched from components or services and later handled by reducers or effects.
+    </p>
+
+    <h2>Example</h2>
+    <p>
+      Below is a demo where we define and dispatch an action called <code>increment</code>. 
+      The reducer isn’t shown yet, but the demo shows how to wire up the action and dispatch it from a component.
+    </p>
+
+    <p>
+  Note: This demo updates the counter because we’ve already connected a reducer. 
+  Actions by themselves don’t change state — the next section will explain how reducers handle these actions.
+</p>
+
+   <app-counter-demo></app-counter-demo>
+  </section>
+</div>
