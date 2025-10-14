@@ -12,6 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { counterReducer } from './features/advanced/ngrx/state/counter.reducer';
+import { CounterEffects } from './features/advanced/ngrx/state/counter.effects';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { counterReducer } from './features/advanced/ngrx/state/counter.reducer';
     HttpClientModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({counter:counterReducer}),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([CounterEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
   providers: [
