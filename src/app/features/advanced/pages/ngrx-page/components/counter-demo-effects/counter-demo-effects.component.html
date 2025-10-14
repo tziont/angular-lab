@@ -1,0 +1,5 @@
+<div class="demo-box">
+  <p>This button triggers an async effect that loads a random counter value.</p>
+  <button (click)="onLoadCounter()">Load Counter (Async)</button>
+  <span>Counter value: <strong>{{ counter$ | async }}</strong></span>
+</div>
