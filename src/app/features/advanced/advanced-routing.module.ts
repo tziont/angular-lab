@@ -13,6 +13,7 @@ import { NgrxComponent} from './pages/ngrx-page/ngrx.component';
 import { NgrxActionsComponent } from './pages/ngrx-page/components/ngrx-actions/ngrx-actions/ngrx-actions.component';
 import { NgrxReducersComponent } from './pages/ngrx-page/components/ngrx-reducers/ngrx-reducers.component';
 import { NgrxSelectorsComponent } from './pages/ngrx-page/components/ngrx-selectors/ngrx-selectors.component';
+import { NgrxEffectsComponent } from './pages/ngrx-page/components/ngrx-effects/ngrx-effects.component';
 const routes: Routes = [
   {
     path: '',
@@ -63,8 +64,8 @@ const routes: Routes = [
         component: NgrxSelectorsComponent,
       },
       {
-        path: 'global-pattern',
-        component: GlobalPatternComponent,
+        path: 'ngrx-effects',
+        component: NgrxEffectsComponent,
       },
     ],
   },{

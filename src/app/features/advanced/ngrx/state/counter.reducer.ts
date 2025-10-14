@@ -1,6 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { increment } from './counter.actions';
-import { decrement } from './counter.actions';
+import { increment,decrement,loadCounterSuccess} from './counter.actions';
 import { reset } from './counter.actions';
 
 // State shape
@@ -18,5 +17,6 @@ export const counterReducer = createReducer(
   initialState,
   on(increment, state => ({ ...state, value: state.value + 1 })),
   on(decrement, state =>({...state, value: state.value - 1})),
-  on(reset, state=> ({...state, value: 0}))
+  on(reset, state=> ({...state, value: 0})),
+  on(loadCounterSuccess, (state, { value }) => ({ ...state, value }))
 );

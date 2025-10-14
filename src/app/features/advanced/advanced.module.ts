@@ -19,9 +19,12 @@ import { GlobalPatternComponent } from './pages/state-management-page/components
 import { NgrxActionsComponent } from './pages/ngrx-page/components/ngrx-actions/ngrx-actions/ngrx-actions.component';
 import { CounterDemoComponent } from './pages/ngrx-page/components/counter-demo/counter-demo.component';
 import { CounterDemoSelectorsComponent } from './pages/ngrx-page/components/counter-demo-selector/counter-demo-selectors.component';
+import { CounterDemoEffectsComponent } from './pages/ngrx-page/components/counter-demo-effects/counter-demo-effects.component';
 import { NgrxReducersComponent } from './pages/ngrx-page/components/ngrx-reducers/ngrx-reducers.component';
 
 import { NgrxSelectorsComponent } from './pages/ngrx-page/components/ngrx-selectors/ngrx-selectors.component';
+import { NgrxEffectsComponent } from './pages/ngrx-page/components/ngrx-effects/ngrx-effects.component';
+
 @NgModule({
   declarations: [
     AdvancedHomeComponent,
@@ -41,6 +44,8 @@ import { NgrxSelectorsComponent } from './pages/ngrx-page/components/ngrx-select
     CounterDemoSelectorsComponent,
     NgrxReducersComponent,
     NgrxSelectorsComponent,
+    NgrxEffectsComponent,
+    CounterDemoEffectsComponent,
   ],
   imports: [
     CommonModule,
