@@ -14,6 +14,8 @@ import { NgrxActionsComponent } from './pages/ngrx-page/components/ngrx-actions/
 import { NgrxReducersComponent } from './pages/ngrx-page/components/ngrx-reducers/ngrx-reducers.component';
 import { NgrxSelectorsComponent } from './pages/ngrx-page/components/ngrx-selectors/ngrx-selectors.component';
 import { NgrxEffectsComponent } from './pages/ngrx-page/components/ngrx-effects/ngrx-effects.component';
+import { NgrxVsSignalsComponent } from './pages/ngrx-page/components/ngrx-vs-signals/ngrx-vs-signals.component';
+import { GlobalAppStateComponent } from './pages/ngrx-page/components/global-app-state/global-app-state.component';
 const routes: Routes = [
   {
     path: '',
@@ -43,7 +45,7 @@ const routes: Routes = [
       },
       {
         path: 'global-pattern',
-        component: GlobalPatternComponent,
+        component: GlobalAppStateComponent,
       },
     ],
   },
@@ -66,6 +68,14 @@ const routes: Routes = [
       {
         path: 'ngrx-effects',
         component: NgrxEffectsComponent,
+      },
+      {
+        path: 'ngrx-vs-signals',
+        component: NgrxVsSignalsComponent,
+      },
+      {
+        path: 'ngrx-global-state',
+        component: GlobalPatternComponent,
       },
     ],
   },{
