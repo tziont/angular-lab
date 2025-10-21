@@ -31,6 +31,7 @@ export class NavbarComponent {
     { path: 'forms', label: 'Forms' },
     { path: 'rxjs', label: 'RxJS' },
     { path: 'directives', label: 'Directives & Pipes' },
+    { path: 'ai', label: 'AI Tools in Development'},
     { path: 'guards', label: 'Guards & Auth' },
     { path: 'signals', label: 'Signals & State' },
     { path: 'testing', label: 'Testing' },

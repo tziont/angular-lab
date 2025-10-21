@@ -27,8 +27,16 @@ export class BreadcrumbComponent {
 
     for (const child of children) {
       const routeURL = child.snapshot.url.map(segment => segment.path).join('/');
-      if (routeURL !== '') {
+
+      if (routeURL === "ai"){
         url += `/${routeURL}`;
+
+        breadcrumbs.push({ label: this.titleUpperCase(routeURL), url });
+      }
+
+      if (routeURL !== '' && routeURL !=="ai") {
+        url += `/${routeURL}`;
+
         breadcrumbs.push({ label: this.titleCase(routeURL), url });
       }
       return this.buildBreadcrumbs(child, url, breadcrumbs);
@@ -39,5 +47,8 @@ export class BreadcrumbComponent {
 
   private titleCase(text: string): string {
     return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+  private titleUpperCase(text:string): string {
+    return text.toUpperCase();
   }
 }

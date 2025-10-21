@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavbarComponent } from './navbar.component';
+import { AiForDebuggingComponent } from './ai-for-debugging.component';
 
-describe('NavbarComponent', () => {
-  let component: NavbarComponent;
-  let fixture: ComponentFixture<NavbarComponent>;
+describe('AiForDebuggingComponent', () => {
+  let component: AiForDebuggingComponent;
+  let fixture: ComponentFixture<AiForDebuggingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [NavbarComponent]
+      declarations: [AiForDebuggingComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NavbarComponent);
+    fixture = TestBed.createComponent(AiForDebuggingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
