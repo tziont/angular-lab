@@ -24,6 +24,11 @@ import { NgrxReducersComponent } from './pages/ngrx-page/components/ngrx-reducer
 
 import { NgrxSelectorsComponent } from './pages/ngrx-page/components/ngrx-selectors/ngrx-selectors.component';
 import { NgrxEffectsComponent } from './pages/ngrx-page/components/ngrx-effects/ngrx-effects.component';
+import { NgrxVsSignalsComponent } from './pages/ngrx-page/components/ngrx-vs-signals/ngrx-vs-signals.component';
+import { CounterDemoNgrxComponent } from './pages/ngrx-page/components/counter-demo-ngrx/counter-demo-ngrx.component';
+import { CounterDemoSignalsComponent } from './pages/ngrx-page/components/counter-demo-signals/counter-demo-signals.component';
+import { GlobalAppStateComponent } from './pages/ngrx-page/components/global-app-state/global-app-state.component';
+import { GlobalUiDemoComponent } from './pages/ngrx-page/components/global-ui-demo/global-ui-demo.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +51,11 @@ import { NgrxEffectsComponent } from './pages/ngrx-page/components/ngrx-effects/
     NgrxSelectorsComponent,
     NgrxEffectsComponent,
     CounterDemoEffectsComponent,
+    NgrxVsSignalsComponent,
+    CounterDemoNgrxComponent,
+    CounterDemoSignalsComponent,
+    GlobalAppStateComponent,
+    GlobalUiDemoComponent,
   ],
   imports: [
     CommonModule,
