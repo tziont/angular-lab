@@ -78,6 +78,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'ai',
+        loadChildren: () =>
+          import('../features/ai/ai.modules').then(
+            (m) => m.AiModule
+          ),
+      },
+      {
         path: 'advanced',
         loadChildren: () =>
           import('../features/advanced/advanced.module').then(
