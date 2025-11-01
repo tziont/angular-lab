@@ -1,1 +1,54 @@
-<p>code-generation works!</p>
+<div class="container">
+  <h1>AI-Assisted Code Generation in VS Code</h1>
+
+  <section class="overview">
+    <p>
+      This sub-topic demonstrates how to use AI tools integrated into your development environment to generate Angular components and services.
+      The focus is on producing working code inside VS Code, reviewing AI output, and improving it manually to follow Angular best practices.
+    </p>
+
+    <h2>Demo Component</h2>
+    <p>
+  Below is a working Angular demo: <code>UserListComponent</code> displays a list of users fetched from <code>UserService</code>.
+  This is the same kind of component you can generate using <strong>GitHub Copilot</strong>, Codeium, or the ChatGPT VS Code plugin.
+</p>
+
+    <h3>user.service.ts</h3>
+    <pre>{{ userServiceCode }}</pre>
+
+    <h3>user-list.component.ts</h3>
+    <pre>{{ userListComponentCode }}</pre>
+
+    <h3>user-list.component.html</h3>
+    <pre>{{ userListHtmlCode }}</pre>
+
+    <h2>Using AI Tools in VS Code</h2>
+    <p>Follow these steps to generate or refine this component with AI:</p>
+    <ol>
+      <li>
+        <strong>GitHub Copilot:</strong>  
+        Open <code>user-list.component.ts</code>, start typing a method like <code>ngOnInit()</code> or <code>getUsers()</code>, and let Copilot suggest the implementation. Accept suggestions or modify as needed.
+      </li>
+      <li>
+        <strong>Copilot Chat:</strong>  
+        Open the chat sidebar, select your component code, and ask for improvements or explanations. Example prompt: <em>"Refactor this UserListComponent to use proper Angular best practices."</em>
+      </li>
+      <li>
+        <strong>Codeium:</strong>  
+        Type the first few characters of your function or service in the editor. Accept inline suggestions to complete it faster.
+      </li>
+      <li>
+        <strong>ChatGPT VS Code Plugin:</strong>  
+        Highlight a component or service, then ask the AI to generate an alternative implementation or add comments. Compare with your current code.
+      </li>
+    </ol>
+
+    <h2>Compare AI Output vs Manual Improvement</h2>
+    <ul>
+      <li>Check for naming consistency, folder structure, and type correctness.</li>
+      <li>Ensure Angular best practices are followed (e.g., OnInit usage, proper subscriptions).</li>
+      <li>Manually refine formatting, comments, and error handling.</li>
+      <li>Save both versions to see what AI gets right automatically and where manual improvements are necessary.</li>
+    </ul>
+  </section>
+</div>
