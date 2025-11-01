@@ -10,16 +10,18 @@ import { ErrorHandlingInterceptor } from './core/interceptors/error-handling-int
 import { AuthInterceptor } from './core/interceptors/auth.-interceptor.service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import  { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { counterReducer } from './features/advanced/ngrx/state/counter.reducer';
 import { CounterEffects } from './features/advanced/ngrx/state/counter.effects';
 import { uiReducer } from './features/advanced/ngrx/state/ui.reducers';
+import { UserListComponent } from './features/ai/pages/ai-code-generation/user-list.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    UserListComponent,
        ],
   imports: [
     BrowserModule,
