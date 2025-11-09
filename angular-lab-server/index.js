@@ -2,17 +2,26 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-
+const OpenAI = require('openai');
 const app = express();
+
 const PORT = process.env.PORT || 3001;
 
 const { verifyToken, SECRET_KEY } = require('./middleware/auth'); // import middleware
+
 require('dotenv').config(); // load .env
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // <-- add this key to your .env
+});
 
 app.use(cors());
 app.use(express.json());
 
 let refreshTokens = [];
+
+
+
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
@@ -101,4 +110,31 @@ app.get('/settings', verifyToken, async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
+});
+
+// ✅ (for demo 2 – real debugging with OpenAI)
+app.post('/api/ai-debug', async (req, res) => {
+  try {
+    const { codeSnippet, errorMessage } = req.body;
+
+    const prompt = `
+You are an expert Angular and TypeScript developer. 
+Help me debug the following issue:
+Error: ${errorMessage}
+Code:
+${codeSnippet}
+Explain the cause and how to fix it clearly and concisely.
+`;
+
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [{ role: 'user', content: prompt }],
+    });
+
+    const answer = response.choices[0].message.content;
+    res.json({ suggestion: answer });
+  } catch (error) {
+    console.error('OpenAI error:', error);
+    res.status(500).json({ message: 'Error contacting OpenAI API' });
+  }
 });

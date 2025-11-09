@@ -1,0 +1,27 @@
+.demo-container {
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+
+  textarea {
+    width: 100%;
+    min-height: 80px;
+    margin-bottom: 12px;
+    padding: 8px;
+    font-family: monospace;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .ai-response {
+    background-color: #eef;
+    padding: 12px;
+    border-radius: 6px;
+  }
+}
