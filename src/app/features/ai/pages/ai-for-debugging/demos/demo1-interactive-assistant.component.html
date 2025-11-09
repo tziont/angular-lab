@@ -1,0 +1,17 @@
+<div class="demo-container">
+  <h3>Demo 1: Interactive Debugging Assistant</h3>
+  <p>Enter an error message below to see how the AI assistant might respond:</p>
+
+  <textarea [(ngModel)]="errorInput" placeholder="Paste error message here"></textarea>
+
+  <div class="buttons">
+    <button (click)="analyzeError()">Analyze</button>
+    <button (click)="clear()">Clear</button>
+  </div>
+
+  <div class="ai-response" *ngIf="aiResponse">
+    <h4>AI Response:</h4>
+    <p>{{ aiResponse }}</p>
+  </div>
+</div>
+
