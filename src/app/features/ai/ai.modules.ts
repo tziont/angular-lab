@@ -6,8 +6,9 @@ import { AiForDebuggingComponent } from './pages/ai-for-debugging/ai-for-debuggi
 import { AiForDocumentationComponent } from './pages/ai-for-documentation/ai-for-documentation.component';
 import { AiInWorkflowOptimizationComponent } from './pages/ai-in-workflow-optimization/ai-in-workflow-optimization.component';
 import { AiCodeGenerationComponent } from './pages/ai-code-generation/ai-code-generation.component';
-
-
+import { Demo1InteractiveAssistantComponent } from './pages/ai-for-debugging/demos/demo1-interactive-assistant.component';
+import { Demo2RealLifeVersionComponent } from './pages/ai-for-debugging/demos/demo2-real-life-version.component';
+import { FormsModule } from '@angular/forms'; 
 
 @NgModule({
   declarations: [
@@ -15,11 +16,14 @@ import { AiCodeGenerationComponent } from './pages/ai-code-generation/ai-code-ge
     AiForDebuggingComponent,
     AiForDocumentationComponent,
     AiInWorkflowOptimizationComponent,
-    AiCodeGenerationComponent
+    AiCodeGenerationComponent,
+    Demo1InteractiveAssistantComponent,
+    Demo2RealLifeVersionComponent
   ],
   imports: [
     CommonModule,
-    AiRoutingModule
-  ]
+    AiRoutingModule,
+    FormsModule 
+   ]
 })
 export class AiModule { }
