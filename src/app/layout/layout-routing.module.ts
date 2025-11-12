@@ -19,7 +19,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'app/services',
+        path: 'services',
         loadChildren: () =>
           import('../features/services/services.module').then(
             (m) => m.ServicesModule
