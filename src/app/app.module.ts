@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule, isDevMode, ErrorHandler  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -16,14 +16,14 @@ import { CounterEffects } from './features/advanced/ngrx/state/counter.effects';
 import { uiReducer } from './features/advanced/ngrx/state/ui.reducers';
 import { UserListComponent } from './features/ai/pages/ai-code-generation/user-list.component';
 
-
-
+import * as Sentry from '@sentry/angular';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     UserListComponent,
+
       ],
   imports: [
     BrowserModule,
@@ -51,7 +51,13 @@ import { UserListComponent } from './features/ai/pages/ai-code-generation/user-l
       provide:HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler({
+        showDialog: false, // you can set true for a nice popup
+      }),
+    },
   ],
   bootstrap: [AppComponent]
 })
