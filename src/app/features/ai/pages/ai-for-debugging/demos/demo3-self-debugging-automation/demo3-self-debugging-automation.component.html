@@ -1,0 +1,51 @@
+<div class="container">
+  <h1>Demo 3 – Automatic AI + Sentry Integration</h1>
+
+  <section class="overview">
+    <p>
+      This demo shows fully automatic error tracking and AI analysis:
+    </p>
+    <ul>
+      <li>Any runtime error in this app is automatically captured by Sentry.</li>
+      <li>Sentry sends the error event to the backend (<code>/api/sentry-event</code>).</li>
+      <li>The backend calls OpenAI to analyze the error and generate a suggested fix.</li>
+      <li>The AI analysis is logged in the server console.</li>
+    </ul>
+
+    <h2>How to check that it works:</h2>
+
+    <p>Follow these steps:</p>
+    <ol>
+      <li>Open your browser console and the terminal running <code>angular-lab-server</code>.</li>
+      <li>
+        Trigger a runtime error in the browser console, for example:  
+        <code>(window as any).undefinedFunction();</code>
+      </li>
+      <li>
+        You should see in the browser console:  
+        <code>ERROR TypeError: window.undefinedFunction is not a function</code>
+      </li>
+      <li>
+        Check the Network tab — you should see a POST request to <code>http://localhost:3001/api/sentry-event</code>.
+      </li>
+      <li>
+        In the server terminal, you will see something like:  
+        <pre>
+✅ Received Sentry event from frontend
+Event payload: {{ '{' }} … {{ '}' }}
+===== AI ANALYSIS =====
+[AI explanation of the error]
+=====================
+        </pre>
+        This confirms that Sentry captured the error and the AI processed it automatically.
+      </li>
+    </ol>
+
+    <h2>Notes:</h2>
+    <ul>
+      <li>No manual buttons are needed — everything is automatic.</li>
+      <li>You can trigger multiple errors to see multiple AI analyses.</li>
+      <li>The AI suggestions are real-time and based on the exact error and stack trace.</li>
+    </ul>
+  </section>
+</div>

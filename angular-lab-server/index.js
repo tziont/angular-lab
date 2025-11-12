@@ -138,3 +138,44 @@ Explain the cause and how to fix it clearly and concisely.
     res.status(500).json({ message: 'Error contacting OpenAI API' });
   }
 });
+
+// angular-lab-server/index.js
+app.post('/api/sentry-event', async (req, res) => {
+  console.log('✅ Received Sentry event from frontend');
+  console.log('Event payload:', req.body);
+
+  const sentryEvent = req.body;
+
+  // Try to get message from multiple possible locations
+  const errorMessage =
+    sentryEvent?.message ||
+    sentryEvent?.exception?.values?.[0]?.value ||
+    sentryEvent?.exception?.values?.[0]?.type ||
+    'Unknown error';
+
+  const stacktrace = JSON.stringify(
+    sentryEvent?.stacktrace || sentryEvent?.exception?.values?.[0]?.stacktrace || {},
+    null,
+    2
+  );
+
+  const prompt = `
+You are a debugging assistant.
+Analyze this error and provide:
+- Root cause
+- Suggested fix
+
+Error message: ${errorMessage}
+Stack trace: ${stacktrace}
+`;
+
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o-mini',
+    messages: [{ role: 'user', content: prompt }],
+  });
+
+  const analysis = response.choices[0].message.content;
+  console.log('===== AI ANALYSIS =====\n', analysis, '\n=====================');
+
+  res.status(200).json({ success: true, analysis });
+});
