@@ -25,7 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     return next.handle(authReq).pipe(
-      tap(event => console.log('Request sent with token:', authReq.headers.get('Authorization'))),
+      tap(event => console.log('%c[Interceptor]Request sent with token:','background:blue;color:white', authReq.headers.get('Authorization'))),
       catchError((error: HttpErrorResponse) => {
         console.log('Request error status:', error.status);
         // If 401 and refresh token exists
