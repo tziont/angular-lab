@@ -1,0 +1,35 @@
+/* Reset default list styles and apply custom icon handling */
+
+ul.flowerd-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+
+li {
+  position: relative;
+  padding-left: 1.5rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.2rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    background-image: url('../assets/icons/flower.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+}
+
+ul.links-wrapper {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+h1{
+  color: rgb(8, 141, 243);
+}

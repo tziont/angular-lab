@@ -16,7 +16,7 @@ export class LoggingInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log(`Request: ${req.method} ${req.url}`);
+    console.log('%c[Interceptor] Request:', 'background:green; color:white', `${req.method} ${req.url}`);
     return next.handle(req).pipe(
       tap({
         next: (event: HttpEvent<any>) => {
@@ -43,7 +43,7 @@ export class LoggingInterceptor implements HttpInterceptor {
         complete: () =>
           console.log(
             '%c[Interceptor] Stream completed.',
-            'background:#2196f3;color:white'
+            'background:green;color:white'
           ),
       })
     );
