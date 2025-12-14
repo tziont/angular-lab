@@ -1,10 +1,14 @@
 // angular-lab-server/index.js
 const express = require('express');
+const mongoose = require('mongoose');
+
 const cors = require('cors');
 const axios = require('axios');
 const OpenAI = require('openai');
 const app = express();
-
+const User = require('./models/User');
+const bcrypt = require('bcrypt');
+const RefreshToken = require('./models/RefreshToken');
 const PORT = process.env.PORT || 3001;
 
 const { verifyToken, SECRET_KEY } = require('./middleware/auth'); // import middleware
@@ -18,20 +22,18 @@ const openai = new OpenAI({
 app.use(cors());
 app.use(express.json());
 
-let refreshTokens = [];
-
-
-
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const response = await axios.get('http://localhost:3000/users');
-    const users = response.data;
 
-    const user = users.find(u => u.username === username && u.password === password);
-    if (!user) return res.status(401).json({ message: 'Invalid credentials' });
+ const user = await User.findOne({ username });
+if (!user) return res.status(401).json({ message: 'Invalid credentials' });
+
+// Compare hashed password
+const match = await bcrypt.compare(password, user.password);
+if (!match) return res.status(401).json({ message: 'Invalid credentials' });
 
     // short-lived access token
     const accessToken = require('jsonwebtoken').sign(
@@ -47,8 +49,12 @@ app.post('/login', async (req, res) => {
       { expiresIn: process.env.REFRESH_TOKEN_EXPIRES || '7d' }
     );
 
-    // store refresh token in memory
-    refreshTokens.push(refreshToken);
+   try {
+  await RefreshToken.create({ token: refreshToken, userId: user._id });
+} catch (err) {
+  console.error('Error saving refresh token:', err);
+}
+
 
     res.json({
       accessToken,
@@ -66,10 +72,12 @@ app.post('/login', async (req, res) => {
 });
 
 
-app.post('/token', (req, res) => {
+app.post('/token', async (req, res) => {
   const { token } = req.body; // ✅ match frontend
   if (!token) return res.status(401).json({ message: 'No token provided' });
-  if (!refreshTokens.includes(token)) return res.status(403).json({ message: 'Invalid refresh token' });
+ const storedToken = await RefreshToken.findOne({ token });
+  if (!storedToken)
+    return res.status(403).json({ message: 'Invalid refresh token' });
 
   try {
     const decoded = require('jsonwebtoken').verify(token, process.env.REFRESH_SECRET || 'myrefreshsecret');
@@ -106,7 +114,10 @@ app.get('/settings', verifyToken, async (req, res) => {
 });
 
 
-
+// --- MongoDB Connection ---
+mongoose.connect(process.env.MONGODB_ATLAS_URI)
+  .then(() => console.log("✅ Connected to MongoDB Atlas"))
+  .catch(err => console.error("❌ MongoDB connection error:", err));
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
