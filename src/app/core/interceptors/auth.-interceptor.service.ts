@@ -4,52 +4,45 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpErrorResponse,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, throwError, switchMap, catchError, tap } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
+  private isRefreshing = false;
+
   constructor(private authService: AuthService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.authService.getToken();
-    let authReq = req;
+  intercept(req: HttpRequest<any>, next: HttpHandler):
+    Observable<HttpEvent<any>> {
 
-    if (token && req.url.startsWith('http://localhost:3001')) {
-      authReq = req.clone({
-        setHeaders: { Authorization: `Bearer ${token}` },
-      });
-    }
+    const request = req.clone({ withCredentials: true });
 
-    return next.handle(authReq).pipe(
-      tap(event => console.log('%c[Interceptor]Request sent with token:','background:blue;color:white', authReq.headers.get('Authorization'))),
+    return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.log('Request error status:', error.status);
-        // If 401 and refresh token exists
-        if (error.status === 401 && this.authService.getRefreshToken()) {
-          console.log('401 detected, refreshing token...');
-          return this.authService.refreshToken().pipe(
-            switchMap((res: any) => {
-              const newToken = res.accessToken;
-              this.authService.saveToken(newToken); // ✅ save the new token
-              console.log('New token received:', newToken);
 
-              const newReq = req.clone({
-                setHeaders: { Authorization: `Bearer ${newToken}` },
-              });
-              return next.handle(newReq);
+        if (error.status === 401 && !this.isRefreshing) {
+          this.isRefreshing = true;
+
+          return this.authService.refreshToken().pipe(
+            switchMap(() => {
+              this.isRefreshing = false;
+              return next.handle(
+              request.clone({ withCredentials: true })
+  );
             }),
-            catchError((err) => {
-              console.log('Refresh failed:', err);
-              // Refresh failed → logout
+            catchError(err => {
+              this.isRefreshing = false;
               this.authService.logout();
               return throwError(() => err);
             })
           );
         }
+
         return throwError(() => error);
       })
     );

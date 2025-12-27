@@ -1,7 +1,7 @@
 // src/app/layout/navbar/navbar.component.ts
 import { Component, inject } from '@angular/core';
-import { ThemeService } from '../../core/services/theme.service';
-import { AuthService } from '../../core/services/auth.service';
+import { ThemeService } from '../../../core/services/theme.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({

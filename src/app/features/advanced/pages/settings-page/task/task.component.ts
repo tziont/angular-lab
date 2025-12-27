@@ -142,9 +142,17 @@ export class TaskComponent implements AfterViewInit, OnChanges {
     ref.setInput('control', control);
     ref.setInput('key', element.key);
     ref.setInput('label', element.label);
-    if (element.metadata && 'options' in element.metadata) {
-      ref.setInput('options', element.metadata.options || []);
-    }
+    
+     if (
+    element.type === SettingType.Select &&
+    element.metadata?.options
+  ) {
+    console.log(
+  'SETTING TYPE:', element.type,
+  'COMPONENT INSTANCE:', ref.instance.constructor.name
+);
+    ref.setInput('options', element.metadata.options);
+  }
   }
 
   toggleExpander(groupName: string): void {

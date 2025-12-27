@@ -9,7 +9,7 @@
 //   beforeSend(event) {
 //     console.log('📡 beforeSend triggered with event:', event);
 
-//     fetch('http://localhost:3001/api/sentry-event', {
+//     fetch('https://localhost:3001/api/sentry-event', {
 //       method: 'POST',
 //       headers: { 'Content-Type': 'application/json' },
 //       body: JSON.stringify(event),
@@ -41,7 +41,7 @@ Sentry.init({
     try {
       // send event to your local backend for OpenAI analysis
       // keep it fire-and-forget so UI isn't blocked
-      fetch('http://localhost:3001/api/sentry-event', {
+      fetch('https://localhost:3001/api/sentry-event', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(event),

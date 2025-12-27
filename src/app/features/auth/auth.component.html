@@ -1,0 +1,68 @@
+<div class="container">
+ <h1>Auth</h1>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button
+      type="button"
+      (click)="activeTab = 'login'"
+      [class.active]="activeTab === 'login'"
+    >
+      Login
+    </button>
+
+    <button
+      type="button"
+      (click)="activeTab = 'signup'"
+      [class.active]="activeTab === 'signup'"
+    >
+      Signup
+    </button>
+  </div>
+
+  <form *ngIf="activeTab === 'login'" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <div>
+      <label for="username">Username</label>
+      <input id="username" formControlName="username" />
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" />
+    </div>
+  <p *ngIf="loginErrorMessage" style="color: red">{{ loginErrorMessage }}</p>
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+  </form>
+
+ 
+  <div *ngIf="activeTab === 'signup'">
+  <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+    <div>
+      <label>Username</label>
+      <input formControlName="username" />
+    </div>
+    <p *ngIf="signupForm.get('username')?.errors?.['usernameTaken']" style="color: red">
+  Username already exists
+    </p>
+    <div>
+      <label>Password</label>
+      <input type="password" formControlName="password" />
+    </div>
+    <div>
+      <label>Confirm Password</label>
+      <input type="password" formControlName="confirmPassword" />
+    </div>
+    <div *ngIf="signupForm.touched && showPasswordError"
+     style="color: red">
+  Passwords do not match
+</div>
+ <p *ngIf="signupErrorMessage" style="color: red">{{ signupErrorMessage }}</p>
+    <button type="submit" [disabled]="signupForm.invalid">Signup</button>
+  </form>
+
+
+ 
+
+
+</div>

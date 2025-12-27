@@ -8,14 +8,14 @@ import { Settings, Setting } from '../../types/setting.model';
 })
 export class SettingTaskService {
 
-  baseUrl = 'http://localhost:3001/settings';
+  baseUrl = 'https://localhost:3001/settings';
   constructor(private http: HttpClient) {}
 
   getSettings(): Observable<Settings> {
-    return this.http.get<Settings>(this.baseUrl);
+    return this.http.get<Settings>(this.baseUrl, { withCredentials: true });
   }
 
   saveSettings(setting:Setting):Observable<Settings>{
-    return this.http.put<Settings>(`${this.baseUrl}/${setting.id}`, setting);
+    return this.http.put<Settings>(`${this.baseUrl}/${setting.id}`, setting, { withCredentials: true });
   }
 }

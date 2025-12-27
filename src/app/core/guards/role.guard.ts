@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,7 @@ export class RoleGuard implements CanActivate {
     const user = this.authService.getUser(); // Assume AuthService stores current user
 
     if (user && route.data['roles']?.includes(user.role)) {
+      console.log('Auth guard running');
       return true; // ✅ Allowed
     }
 
@@ -23,3 +26,5 @@ export class RoleGuard implements CanActivate {
     return this.router.parseUrl('/home/advanced/forbidden');
   }
 }
+
+
