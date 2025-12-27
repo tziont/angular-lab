@@ -26,6 +26,7 @@ export type TextMetadata = {
     tooltip?: string;
     min?: number;
     max?: number;
+    
 }
 
 export type SelectMetadata = {

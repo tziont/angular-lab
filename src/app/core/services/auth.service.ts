@@ -12,34 +12,34 @@ export class AuthService {
   private readonly tokenKey = 'token';
   private readonly refreshTokenKey = 'refreshToken'; // ✅ new
   private readonly userKey = 'user';
-  private readonly API_URL = 'http://localhost:3001';
+  private readonly API_URL = 'https://localhost:3001';
 
   constructor(private http: HttpClient) {}
 
   // --- token + refresh token methods ---
-  saveToken(token: string): void {
-    localStorage.setItem(this.tokenKey, token);
-  }
+  // saveToken(token: string): void {
+  //   localStorage.setItem(this.tokenKey, token);
+  // }
 
-  getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
-  }
+  // getToken(): string | null {
+  //   return localStorage.getItem(this.tokenKey);
+  // }
 
-  removeToken(): void {
-    localStorage.removeItem(this.tokenKey);
-  }
+  // removeToken(): void {
+  //   localStorage.removeItem(this.tokenKey);
+  // }
 
-  saveRefreshToken(token: string): void {
-    localStorage.setItem(this.refreshTokenKey, token);
-  }
+  // saveRefreshToken(token: string): void {
+  //   localStorage.setItem(this.refreshTokenKey, token);
+  // }
 
-  getRefreshToken(): string | null {
-    return localStorage.getItem(this.refreshTokenKey);
-  }
+  // getRefreshToken(): string | null {
+  //   return localStorage.getItem(this.refreshTokenKey);
+  // }
 
-  removeRefreshToken(): void {
-    localStorage.removeItem(this.refreshTokenKey);
-  }
+  // removeRefreshToken(): void {
+  //   localStorage.removeItem(this.refreshTokenKey);
+  // }
 
   // --- user methods ---
   saveUser(user: User): void {
@@ -56,23 +56,26 @@ export class AuthService {
   }
 
   // --- logout ---
-  logout(): void {
-    this.removeToken();
-    this.removeRefreshToken(); // ✅ new
-    this.removeUser();
-  }
+logout(): void {
+  // Remove local user info
+  this.removeUser();
+
+  // Call backend to clear cookies
+  this.http.post(`${this.API_URL}/logout`, {}, { withCredentials: true })
+    .subscribe({
+      next: () => console.log('Logged out'),
+      error: () => console.warn('Logout failed on server')
+    });
+}
+
 
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    return !!this.getUser();
   }
 
   // --- refresh token API call ---
-  refreshToken(): Observable<any> {
-    const refreshToken = this.getRefreshToken();
-    return this.http.post(`${this.API_URL}/token`, { token: refreshToken }).pipe(
-      tap((res: any) => {
-        this.saveToken(res.accessToken);
-      })
-    );
-  }
+refreshToken(): Observable<any> {
+  return this.http.post(`${this.API_URL}/token/refresh`, {}, { withCredentials: true });
+}
+
 }

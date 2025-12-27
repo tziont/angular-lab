@@ -18,11 +18,15 @@ export interface LoginResponse {
   providedIn: 'root',
 })
 export class LoginService {
-  private readonly BASE_URL = 'http://localhost:3001'; // Express backend port
+  private readonly BASE_URL = 'https://localhost:3001'; // Express backend port
 
   constructor(private http: HttpClient) {}
 
-  login(credentials: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.BASE_URL}/login`, credentials);
-  }
+
+
+login(credentials: LoginRequest) : Observable<LoginResponse>{
+  return this.http.post<LoginResponse>(`${this.BASE_URL}/login`, credentials, { withCredentials: true } // ✅ sends/receives httpOnly cookies
+  );
+}
+
 }

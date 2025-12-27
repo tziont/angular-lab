@@ -5,12 +5,12 @@ export const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./login/login.module').then((m) => m.LoginModule),
+      import('./features/auth/auth.module').then((m) => m.LoginModule),
   },
  
   {
     path: 'home',
     loadChildren: () =>
-      import('./layout/layout.module').then((m) => m.LayoutModule),
+      import('./features/layout/layout.module').then((m) => m.LayoutModule),
   },
 ];
