@@ -1,7 +1,7 @@
 nav {
   width: 250px;
-  background-color: #d79c21;
-  color: #000;
+  background-color: var(--nav-bg);
+  
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -10,6 +10,9 @@ nav {
   left: 0;
   padding-top: 20px;
   z-index: 100;
+  a{
+    color: var(--nav-text);
+  }
 }
 
 nav .logo {
@@ -28,7 +31,7 @@ nav .nav-links {
 
 nav .nav-links li a {
   text-decoration: none;
-  color: #fff;
+  color: var(--nav-text);
   display: block;
   padding: 12px 20px;
   font-size: 18px;

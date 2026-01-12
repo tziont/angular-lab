@@ -36,7 +36,12 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles":  [
+              "src/styles/tokens.css",
+              "src/styles/variables.scss",
+              "src/styles/themes.css",
+              "src/styles.scss"
+              ],
             "stylePreprocessorOptions": {
               "includePaths": ["src"]
             },
@@ -100,7 +105,12 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles/tokens.css",
+              "src/styles/variables.scss",
+              "src/styles/themes.css",
+              "src/styles.scss"
+              ],
             "scripts": []
           }
         }

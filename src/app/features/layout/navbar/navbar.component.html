@@ -4,7 +4,7 @@
     <li *ngFor="let topic of topics">
       <a [routerLink]="topic.path" routerLinkActive="active">{{ topic.label }}</a>
     </li>
-    <div class="theme-toggle">
+    <div>
       <button (click)="toggleTheme()" >Toggle theme</button>
     </div>
     <button (click)="logout()">Logout</button>
