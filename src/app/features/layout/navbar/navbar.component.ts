@@ -11,12 +11,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  private themeService = inject(ThemeService);
   private authService = inject(AuthService);
   private router = inject(Router);
-  toggleTheme(): void {
-    this.themeService.toggleTheme();
-  }
+  
+constructor(private theme: ThemeService) {}
+
+toggleTheme() {
+  this.theme.toggle();
+}
+
+
 
   logout():void{
     this.authService.logout();
