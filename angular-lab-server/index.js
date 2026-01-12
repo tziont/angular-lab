@@ -307,3 +307,26 @@ app.post('/api/sentry-event', (req, res) => {
   // swallow the error in dev — do NOT block app flow
   return res.status(200).json({ success: true });
 });
+
+const FeatureFlag = require('../models/feature-flag');
+
+app.get('/feature-flags', async (req, res) => {
+try {
+    const flags = await FeatureFlag.find();
+    res.json(flags);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+})
+
+app.post('/feature-flags', async (req, res) => {
+  
+})
+
+app.put('/feature-flags/:id', async (req, res) => {
+  
+})
+
+app.delete('/feature-flags/:id', async (req, res) => {
+  
+})
