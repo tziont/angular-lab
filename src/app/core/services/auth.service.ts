@@ -16,31 +16,6 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  // --- token + refresh token methods ---
-  // saveToken(token: string): void {
-  //   localStorage.setItem(this.tokenKey, token);
-  // }
-
-  // getToken(): string | null {
-  //   return localStorage.getItem(this.tokenKey);
-  // }
-
-  // removeToken(): void {
-  //   localStorage.removeItem(this.tokenKey);
-  // }
-
-  // saveRefreshToken(token: string): void {
-  //   localStorage.setItem(this.refreshTokenKey, token);
-  // }
-
-  // getRefreshToken(): string | null {
-  //   return localStorage.getItem(this.refreshTokenKey);
-  // }
-
-  // removeRefreshToken(): void {
-  //   localStorage.removeItem(this.refreshTokenKey);
-  // }
-
   // --- user methods ---
   saveUser(user: User): void {
     localStorage.setItem(this.userKey, JSON.stringify(user));
