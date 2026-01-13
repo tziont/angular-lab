@@ -215,6 +215,37 @@ console.log('Fetching settings for user:', user.username, 'with role:', user.rol
 });
 
 
+app.put('/settings', verifyToken, async (req, res) => {
+  try {
+    const user = req.user;
+    if (!['Admin', 'Editor'].includes(user.role)) {
+      return res.status(403).json({ message: 'Forbidden: insufficient role' });
+    }
+
+    const settings = req.body; // array of settings
+    if (!Array.isArray(settings)) return res.status(400).json({ message: 'Request body must be an array' });
+
+    const bulkOps = settings.map(({ _id, ...s }) => ({
+      updateOne: {
+        filter: { key: s.key },
+        update: { $set: s },
+        upsert: false
+      }
+    }));
+
+    await Setting.bulkWrite(bulkOps);
+
+    const updatedSettings = await Setting.find({ key: { $in: settings.map(s => s.key) } });
+    res.json(updatedSettings);
+  } catch (err) {
+    console.error('Error updating all settings:', err);
+    res.status(500).json({ message: 'Server error saving settings', error: err.message });
+  }
+});
+
+
+
+
 // --- MongoDB Connection ---
 mongoose.connect(process.env.MONGODB_ATLAS_URI)
   .then(() => console.log("✅ Connected to MongoDB Atlas"))
@@ -308,7 +339,7 @@ app.post('/api/sentry-event', (req, res) => {
   return res.status(200).json({ success: true });
 });
 
-const FeatureFlag = require('../models/feature-flag');
+const FeatureFlag = require('./models/FeatureFlag');
 
 app.get('/feature-flags', async (req, res) => {
 try {
