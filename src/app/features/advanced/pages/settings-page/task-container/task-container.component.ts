@@ -26,6 +26,9 @@ export class TaskContainerComponent implements OnInit {
   settings$!: Observable<Settings>;
   prevFormValues!: any;
   errorMessage="";
+  private areEqual(a: any, b: any): boolean {
+  return JSON.stringify(a) === JSON.stringify(b);
+}
   constructor(private settingTaskService: SettingTaskService, private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -53,26 +56,26 @@ export class TaskContainerComponent implements OnInit {
       }});
   }
 
-  saveSettings() {
-    const previous = this.prevFormValues;
-    const current = this.form.getRawValue();
-    this.settings.forEach((setting) => {
-      const key = setting.key;
-      const oldValue = previous[key];
-      const newValue = current[key];
-      const changed = !this.areEqual(oldValue, newValue);
-      if (changed) {
-        const updatedSetting = {
-          ...setting,
-          value: current[setting.key],
-        };
-        this.settingTaskService.saveSettings(updatedSetting).subscribe();
-      }
+saveSettings() {
+  const previous = this.prevFormValues;
+  const current = this.form.getRawValue();
+
+  // collect only changed settings
+  const changedSettings = this.settings
+    .filter(setting => !this.areEqual(previous[setting.key], current[setting.key]))
+    .map(setting => ({
+      ...setting,
+      ...current[setting.key] instanceof Object ? current[setting.key] : { value: current[setting.key] }
+    }));
+
+  if (changedSettings.length > 0) {
+    this.settingTaskService.saveSettings(changedSettings).subscribe(updated => {
+      console.log('Updated settings:', updated);
+      // update prevFormValues
+      this.prevFormValues = { ...current };
     });
+  } else {
     this.prevFormValues = { ...current };
   }
-
-  areEqual(a: any, b: any): boolean {
-    return JSON.stringify(a) === JSON.stringify(b);
-  }
+}
 }

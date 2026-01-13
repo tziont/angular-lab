@@ -64,3 +64,7 @@ export type Setting = ISelectSetting | ITextSetting | IToggleSetting;
 
 
 export type Settings = Setting[];
+
+export interface SettingDto extends Omit<Setting, 'id'> {
+  _id: string;
+}
