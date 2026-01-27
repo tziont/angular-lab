@@ -16,6 +16,7 @@ import { NgrxSelectorsComponent } from './pages/ngrx-page/components/ngrx-select
 import { NgrxEffectsComponent } from './pages/ngrx-page/components/ngrx-effects/ngrx-effects.component';
 import { NgrxVsSignalsComponent } from './pages/ngrx-page/components/ngrx-vs-signals/ngrx-vs-signals.component';
 import { GlobalAppStateComponent } from './pages/ngrx-page/components/global-app-state/global-app-state.component';
+import { FeatureFlagsPageComponent } from './pages/feature-flag-page/feature-flags-page.component';
 const routes: Routes = [
   {
     path: '',
@@ -78,7 +79,12 @@ const routes: Routes = [
         component: GlobalPatternComponent,
       },
     ],
-  },{
+  },
+  {
+    path:'feature-flags',
+    component: FeatureFlagsPageComponent
+  },
+  {
     path: 'forbidden',
     component: ForbiddenComponent,
   }

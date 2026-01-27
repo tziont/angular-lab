@@ -29,6 +29,8 @@ import { CounterDemoNgrxComponent } from './pages/ngrx-page/components/counter-d
 import { CounterDemoSignalsComponent } from './pages/ngrx-page/components/counter-demo-signals/counter-demo-signals.component';
 import { GlobalAppStateComponent } from './pages/ngrx-page/components/global-app-state/global-app-state.component';
 import { GlobalUiDemoComponent } from './pages/ngrx-page/components/global-ui-demo/global-ui-demo.component';
+import { FeatureFlagsPageComponent } from './pages/feature-flag-page/feature-flags-page.component';
+import { FeatureFlagsListComponent } from './pages/feature-flag-page/feature-flags-list/feature-flags-list.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { GlobalUiDemoComponent } from './pages/ngrx-page/components/global-ui-de
     CounterDemoSignalsComponent,
     GlobalAppStateComponent,
     GlobalUiDemoComponent,
+    FeatureFlagsPageComponent,
+    FeatureFlagsListComponent,
   ],
   imports: [
     CommonModule,
