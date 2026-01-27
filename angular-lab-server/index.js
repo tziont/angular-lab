@@ -351,13 +351,62 @@ try {
 })
 
 app.post('/feature-flags', async (req, res) => {
-  
+   try {
+    const flag = await FeatureFlag.create(req.body);
+    res.status(201).json(flag);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 })
+
+// app.put('/feature-flags/:id', async (req, res) => {
+//     try {
+//     const updated = await FeatureFlag.findByIdAndUpdate(
+//       req.params.id,
+//       req.body,
+//       { new: true }
+//     );
+
+//     if (!updated) {
+//       return res.status(404).json({ message: 'Feature flag not found' });
+//     }
+
+//     res.json(updated);
+//   } catch (err) {
+//     res.status(400).json({ message: err.message });
+//   }
+// })
+
 
 app.put('/feature-flags/:id', async (req, res) => {
-  
-})
+  try {
+    const updated = await FeatureFlag.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true, runValidators: true }
+    );
+
+    if (!updated) {
+      return res.status(404).json({ message: 'Feature flag not found' });
+    }
+
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 
 app.delete('/feature-flags/:id', async (req, res) => {
-  
+   try {
+    const deleted = await FeatureFlag.findByIdAndDelete(req.params.id);
+
+    if (!deleted) {
+      return res.status(404).json({ message: 'Feature flag not found' });
+    }
+
+    res.json({ message: 'Feature flag deleted' });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 })

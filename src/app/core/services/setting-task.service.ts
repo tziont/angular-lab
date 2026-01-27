@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, retry, shareReplay, map } from 'rxjs';
-import { Settings, Setting, SettingDto } from '../../types/setting.model';
+import { Settings, Setting} from '../../types/setting.model';
 
 @Injectable({
   providedIn: 'root',

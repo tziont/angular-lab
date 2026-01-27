@@ -1,6 +1,9 @@
 export interface IFeatureFlag {
-    key: string;
-    value: boolean;
-    description?: string;
-    roles: string[];
+  _id: string;
+  key: string;
+  enabled: boolean;
+  value: boolean | number | string;
+  description?: string;
+  allowedRoles: string[];
+  createdAt: string;
 }
