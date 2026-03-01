@@ -1,0 +1,103 @@
+/* Container & Layout */
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+h1 {
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+/* --- Create Flag Section (The Form) --- */
+.create-flag {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 3rem;
+  border: 1px solid #e1e8ed;
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr; // Two columns
+    gap: 1rem;
+
+    input[type="text"],
+    textarea {
+      padding: 0.75rem;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+      }
+    }
+
+    textarea {
+      grid-column: span 2; // Span across both columns
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    // Key and Value stay on one row
+    // Roles takes full width
+    input[placeholder*="roles"] {
+      grid-column: span 2;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    button[type="submit"] {
+      grid-column: span 2;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover:not(:disabled) {
+        background-color: #27ae60;
+      }
+
+      &:disabled {
+        background-color: #bdc3c7;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+/* --- Flags List Section --- */
+.flags-list {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px dashed #cbd5e0;
+}
+
+/* Helper for visual spacing if your child component needs it */
+app-feature-flags-list {
+  display: block;
+  margin-top: 1rem;
+}
