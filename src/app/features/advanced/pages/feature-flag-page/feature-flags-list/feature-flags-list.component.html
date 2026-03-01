@@ -1,1 +1,28 @@
-<p>feature-flags-list works!</p>
+<div *ngIf="flags?.length; else empty">
+  <div class="flag" *ngFor="let flag of flags; trackBy: trackById">
+    <h3>{{ flag.key }}</h3>
+
+    <p>{{ flag.description }}</p>
+
+    <label>
+      <input
+        type="checkbox"
+        [checked]="flag.enabled"
+        (change)="onToggle(flag)"
+      />
+      {{ flag.key }}
+    </label>
+
+    <input
+      type="text"
+      [value]="flag.value"
+      (change)="onValueChange(flag, $event)"
+    />
+
+    <button (click)="onDelete(flag._id)">Delete</button>
+  </div>
+</div>
+
+<ng-template #empty>
+  <p>No feature flags found.</p>
+</ng-template>

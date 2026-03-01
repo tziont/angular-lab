@@ -9,6 +9,7 @@ import {
 import { FormBuilder, Validators } from '@angular/forms';
 import { FeatureFlagService } from '../../../../core/services/feature-flag.service';
 import { IFeatureFlag } from '../../../../types/feature-flag.model';
+import { CreateFeatureFlagDto } from '../../../../core/services/feature-flag.service';  
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -24,9 +25,13 @@ export class FeatureFlagsPageComponent implements OnDestroy {
 
   private subs: Subscription = new Subscription();
 
+  private refresh(): void {
+    this.flags$ = this.service.getAll(true);
+  }
+
   flags$ = this.service.getAll();
 
-  form = this.fb.group({
+  form = this.fb.nonNullable.group({
     key: ['', Validators.required],
     enabled: false,
     value: '',
@@ -40,17 +45,13 @@ export class FeatureFlagsPageComponent implements OnDestroy {
 
   create(): void {
     if (this.form.invalid) return;
-    const raw = this.form.value;
-    const flag = {
+    const raw = this.form.getRawValue();
+    const flag: CreateFeatureFlagDto = {
       ...raw,
       allowedRoles: raw.allowedRoles!.split(',').map((r) => r.trim()),
-    } as IFeatureFlag;
+    } ;
 
-    this.subs.add(
-      this.service.create(flag).subscribe(() => {
-        this.flags$ = this.service.getAll(true);
-      })
-    );
+    this.subs.add(this.service.create(flag).subscribe(() => this.refresh()));
     this.form.reset({ enabled: false });
   }
 
@@ -58,23 +59,17 @@ export class FeatureFlagsPageComponent implements OnDestroy {
     this.subs.add(
       this.service
         .update(flag._id, { enabled: !flag.enabled })
-        .subscribe(() => (this.flags$ = this.service.getAll(true)))
+        .subscribe(() => this.refresh()),
     );
   }
 
   updateValue({ flag, value }: { flag: IFeatureFlag; value: string }): void {
     this.subs.add(
-      this.service
-        .update(flag._id, { value })
-        .subscribe(() => (this.flags$ = this.service.getAll(true)))
+      this.service.update(flag._id, { value }).subscribe(() => this.refresh()),
     );
   }
 
   delete(id: string): void {
-    this.subs.add(
-      this.service
-        .delete(id)
-        .subscribe(() => (this.flags$ = this.service.getAll(true)))
-    );
+    this.subs.add(this.service.delete(id).subscribe(() => this.refresh()));
   }
 }
