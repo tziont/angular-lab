@@ -1,0 +1,108 @@
+/* Grid Container */
+div:has(> .flag) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Individual Flag Card */
+.flag {
+  background: #ffffff;
+  border: 1px solid #e1e8ed;
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    font-family: monospace; /* Keys look better in monospace */
+    background: #f1f3f5;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    display: inline-block;
+    align-self: flex-start;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #636e72;
+    line-height: 1.4;
+    min-height: 2.8em; // Keeps cards aligned even with short descriptions
+  }
+
+  /* Status Toggle */
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: #444;
+
+    input[type="checkbox"] {
+      width: 1.2rem;
+      height: 1.2rem;
+      cursor: pointer;
+      accent-color: #2ecc71; // Sets the checkmark color
+    }
+  }
+
+  /* Value Input */
+  input[type="text"] {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #dfe6e9;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    background: #fafafa;
+
+    &:focus {
+      outline: none;
+      border-color: #74b9ff;
+      background: #fff;
+    }
+  }
+
+  /* Delete Button */
+  button {
+    margin-top: auto; // Pushes button to the bottom
+    background: transparent;
+    border: 1px solid #ff7675;
+    color: #d63031;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: #ff7675;
+      color: white;
+    }
+  }
+}
+
+/* Empty State Styling */
+p:not(.flag p) {
+  text-align: center;
+  color: #b2bec3;
+  font-style: italic;
+  padding: 3rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 2px dashed #eee;
+}
