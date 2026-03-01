@@ -1,43 +1,63 @@
 import { Injectable } from '@angular/core';
 import { IFeatureFlag } from '../../types/feature-flag.model';
 import { HttpClient } from '@angular/common/http';
-import { Observable, shareReplay, tap } from 'rxjs';
+import { Observable, shareReplay, tap, Subject, startWith, switchMap } from 'rxjs';
+
+// DTO types
+export type CreateFeatureFlagDto = Omit<IFeatureFlag, '_id' | 'createdAt'>;
+export type UpdateFeatureFlagDto = Partial<Omit<IFeatureFlag, '_id' | 'createdAt'>>;
 
 @Injectable({
   providedIn: 'root',
 })
 export class FeatureFlagService {
-  private readonly apiUrl = 'http://localhost:3000/feature-flags';
-  private flags$?: Observable<IFeatureFlag[]> | null;
+  private readonly apiUrl = 'https://localhost:3001/feature-flags';
+
+  // Trigger to refresh the list reactively
+  private refresh$ = new Subject<void>();
+
+  // Fully typed observable, automatically refreshes
+  flags$: Observable<IFeatureFlag[]> = this.refresh$.pipe(
+    startWith(void 0), // initial load
+    switchMap(() => this.http.get<IFeatureFlag[]>(this.apiUrl).pipe(
+      tap(data => console.log('Backend data:', data))
+    )),
+    
+    shareReplay(1)
+  );
+
   constructor(private http: HttpClient) {}
 
+  /** 
+   * Force refresh is optional but kept for compatibility 
+   * Only needed if you want to bypass the reactive refresh$
+   */
   getAll(forceRefresh: boolean = false): Observable<IFeatureFlag[]> {
-    if (!this.flags$ || forceRefresh) {
-      this.flags$ = this.http
-        .get<IFeatureFlag[]>(this.apiUrl)
-        .pipe(shareReplay(1));
+    if (forceRefresh) {
+      // Manually trigger refresh
+      this.refresh$.next();
     }
     return this.flags$;
   }
 
-  create(flag: IFeatureFlag): Observable<IFeatureFlag> {
+  /** Create a new flag and trigger refresh automatically */
+  create(flag: CreateFeatureFlagDto): Observable<IFeatureFlag> {
     return this.http
       .post<IFeatureFlag>(this.apiUrl, flag)
-      .pipe(tap(() => this.invalidateCache()));
+      .pipe(tap(() => this.refresh$.next()));
   }
 
-  update(id: string, changes: Partial<IFeatureFlag>): Observable<IFeatureFlag> {
+  /** Update a flag and trigger refresh automatically */
+  update(id: string, changes: UpdateFeatureFlagDto): Observable<IFeatureFlag> {
     return this.http
       .put<IFeatureFlag>(`${this.apiUrl}/${id}`, changes)
-      .pipe(tap(() => this.invalidateCache()));
+      .pipe(tap(() => this.refresh$.next()));
   }
 
+  /** Delete a flag and trigger refresh automatically */
   delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`)
-      .pipe(tap(() => this.invalidateCache()));
-  }
-
-  invalidateCache(): void {
-    this.flags$ = undefined;
+    return this.http
+      .delete<void>(`${this.apiUrl}/${id}`)
+      .pipe(tap(() => this.refresh$.next()));
   }
 }

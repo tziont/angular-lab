@@ -1,1 +1,51 @@
-<p>feature-flag-page works!</p>
+<div class="container">
+  <h1>Feature Flags</h1>
+
+  <!-- Create Feature Flag -->
+  <section class="create-flag">
+    <form [formGroup]="form" (ngSubmit)="create()">
+      <input
+        type="text"
+        placeholder="Key"
+        formControlName="key"
+      />
+
+      <input
+        type="text"
+        placeholder="Value"
+        formControlName="value"
+      />
+
+      <input
+        type="text"
+        placeholder="Allowed roles (comma separated)"
+        formControlName="allowedRoles"
+      />
+
+      <textarea
+        placeholder="Description"
+        formControlName="description"
+      ></textarea>
+
+      <label>
+        <input type="checkbox" formControlName="enabled" />
+        Enabled
+      </label>
+
+      <button type="submit" [disabled]="form.invalid">
+        Create
+      </button>
+    </form>
+  </section>
+
+  <!-- Flags List -->
+  <section class="flags-list">
+    <app-feature-flags-list
+      [flags]="flags$ | async"
+      (toggle)="toggle($event)"
+      (valueChange)="updateValue($event)"
+      (delete)="delete($event)"
+    ></app-feature-flags-list>
+  </section>
+</div>
+
