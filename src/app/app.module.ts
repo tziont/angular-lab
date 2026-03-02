@@ -15,7 +15,7 @@ import { counterReducer } from './features/advanced/ngrx/state/counter.reducer';
 import { CounterEffects } from './features/advanced/ngrx/state/counter.effects';
 import { uiReducer } from './features/advanced/ngrx/state/ui.reducers';
 import { UserListComponent } from './features/ai/pages/ai-code-generation/user-list.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as Sentry from '@sentry/angular';
 
 
@@ -27,6 +27,7 @@ import * as Sentry from '@sentry/angular';
       ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({
