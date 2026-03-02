@@ -5,12 +5,13 @@ import {
   ChangeDetectionStrategy,
   OnDestroy,
   inject,
-} from '@angular/core';
+  OnInit} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FeatureFlagService } from '../../../../core/services/feature-flag.service';
 import { IFeatureFlag } from '../../../../types/feature-flag.model';
 import { CreateFeatureFlagDto } from '../../../../core/services/feature-flag.service';  
 import { Subscription } from 'rxjs';
+import { Role } from '../../../../types/roles.model';
 
 @Component({
   selector: 'app-feature-flags-page',
@@ -19,7 +20,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './feature-flags-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FeatureFlagsPageComponent implements OnDestroy {
+export class FeatureFlagsPageComponent implements OnDestroy, OnInit {
   private service = inject(FeatureFlagService);
   private fb = inject(FormBuilder);
 
@@ -30,15 +31,18 @@ export class FeatureFlagsPageComponent implements OnDestroy {
   }
 
   flags$ = this.service.getAll();
-
+  roles = ['admin', 'user', 'editor'];
   form = this.fb.nonNullable.group({
     key: ['', Validators.required],
     enabled: false,
     value: '',
-    allowedRoles: ['', Validators.required],
+    allowedRoles: this.fb.control<Role[]>([], Validators.required),
     description: '',
   });
 
+  ngOnInit() {
+  this.form.valueChanges.subscribe(v => console.log(v));
+}
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
@@ -48,11 +52,11 @@ export class FeatureFlagsPageComponent implements OnDestroy {
     const raw = this.form.getRawValue();
     const flag: CreateFeatureFlagDto = {
       ...raw,
-      allowedRoles: raw.allowedRoles!.split(',').map((r) => r.trim()),
+      allowedRoles: raw.allowedRoles!
     } ;
 
     this.subs.add(this.service.create(flag).subscribe(() => this.refresh()));
-    this.form.reset({ enabled: false });
+    this.form.reset({ enabled: false, allowedRoles: [] });
   }
 
   toggle(flag: IFeatureFlag): void {

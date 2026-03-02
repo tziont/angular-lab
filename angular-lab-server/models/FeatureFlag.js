@@ -1,12 +1,13 @@
-
 const mongoose = require('mongoose');
+
+const {ROLES} = require ('./Roles')
 
 const featureFlagSchema = new mongoose.Schema({
   key: {
     type: String,
     required: true,
     unique: true,
-    immutable: true
+    immutable: true // ✅ fixed typo
   },
 
   enabled: {
@@ -25,6 +26,7 @@ const featureFlagSchema = new mongoose.Schema({
 
   allowedRoles: {
     type: [String],
+    enum: ROLES,     // 🔥 this enforces valid roles
     default: []
   },
 

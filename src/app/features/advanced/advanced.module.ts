@@ -31,6 +31,8 @@ import { GlobalAppStateComponent } from './pages/ngrx-page/components/global-app
 import { GlobalUiDemoComponent } from './pages/ngrx-page/components/global-ui-demo/global-ui-demo.component';
 import { FeatureFlagsPageComponent } from './pages/feature-flag-page/feature-flags-page.component';
 import { FeatureFlagsListComponent } from './pages/feature-flag-page/feature-flags-list/feature-flags-list.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,9 @@ import { FeatureFlagsListComponent } from './pages/feature-flag-page/feature-fla
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule,
+    MatFormFieldModule,
+    MatSelectModule,
+
   ],
 })
 export class AdvancedModule {}
