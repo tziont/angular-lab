@@ -28,17 +28,6 @@ export class FeatureFlagService {
 
   constructor(private http: HttpClient) {}
 
-  /** 
-   * Force refresh is optional but kept for compatibility 
-   * Only needed if you want to bypass the reactive refresh$
-   */
-  getAll(forceRefresh: boolean = false): Observable<IFeatureFlag[]> {
-    if (forceRefresh) {
-      // Manually trigger refresh
-      this.refresh$.next();
-    }
-    return this.flags$;
-  }
 
   /** Create a new flag and trigger refresh automatically */
   create(flag: CreateFeatureFlagDto): Observable<IFeatureFlag> {

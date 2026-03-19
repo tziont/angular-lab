@@ -4,7 +4,14 @@
   <!-- Create Feature Flag -->
   <section class="create-flag">
     <form [formGroup]="form" (ngSubmit)="create()">
-      <input type="text" placeholder="Key" formControlName="key" />
+  <mat-form-field appearance="fill">
+  <mat-label>Feature flag</mat-label>
+  <mat-select formControlName="key" >
+    <mat-option *ngFor="let key of keys" [value]="key">
+      {{ key }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 
       <input type="text" placeholder="Value" formControlName="value" />
 
