@@ -33,6 +33,7 @@ import { FeatureFlagsPageComponent } from './pages/feature-flag-page/feature-fla
 import { FeatureFlagsListComponent } from './pages/feature-flag-page/feature-flags-list/feature-flags-list.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { FeatureFlagedDemoComponent } from './pages/feature-flaged-demo/feature-flaged-demo.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { MatSelectModule } from '@angular/material/select';
     GlobalUiDemoComponent,
     FeatureFlagsPageComponent,
     FeatureFlagsListComponent,
+    FeatureFlagedDemoComponent,
   ],
   imports: [
     CommonModule,
