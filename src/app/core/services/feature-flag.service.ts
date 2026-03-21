@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IFeatureFlag } from '../../types/feature-flag.model';
+import { IFeatureFlag, FeatureKey } from '../../types/feature-flag.model';
 import { HttpClient } from '@angular/common/http';
-import { Observable, shareReplay, tap, Subject, startWith, switchMap } from 'rxjs';
+import { Observable, shareReplay, tap, Subject, startWith, switchMap,map, distinctUntilChanged } from 'rxjs';
 
 // DTO types
 export type CreateFeatureFlagDto = Omit<IFeatureFlag, '_id' | 'createdAt'>;
@@ -48,5 +48,16 @@ export class FeatureFlagService {
     return this.http
       .delete<void>(`${this.apiUrl}/${id}`)
       .pipe(tap(() => this.refresh$.next()));
+  }
+
+  /**
+   * Returns an observable of a specific flag's status.
+   * Uses distinctUntilChanged so the UI only re-renders if the flag actually flips.
+   */
+  isEnabled(key: FeatureKey): Observable<boolean> {
+    return this.flags$.pipe(
+      map(flags => !!flags.find(f => f.key === key)?.enabled),
+      distinctUntilChanged()
+    );
   }
 }

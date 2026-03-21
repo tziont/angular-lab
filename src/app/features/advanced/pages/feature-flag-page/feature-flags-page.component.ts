@@ -3,7 +3,6 @@
 import {
   Component,
   ChangeDetectionStrategy,
-
   DestroyRef,
   inject,
   OnInit,
@@ -47,9 +46,6 @@ export class FeatureFlagsPageComponent implements  OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((v) => console.log(v));
   }
-  // ngOnDestroy(): void {
-  //   this.subs.unsubscribe();
-  // }
 
   create(): void {
     if (this.form.invalid) return;
