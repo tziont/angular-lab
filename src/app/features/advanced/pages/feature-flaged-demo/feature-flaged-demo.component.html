@@ -1,5 +1,14 @@
 <div class="container">
-  <h1>{{ title }}</h1>
+  <h2>Production Feature Flag Demo</h2>
 
-  <p>{{ description }}</p>
-  </div>
+  <section *ifFeature="'featuredflaged-demo'" class="special-feature">
+    <div class="card">
+      <h3>Surprise!</h3>
+      <p>This component was toggled via the database.</p>
+    </div>
+  </section>
+
+  <section>
+    <p>This part of the page is always visible.</p>
+  </section>
+</div>

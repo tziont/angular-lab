@@ -34,7 +34,7 @@ import { FeatureFlagsListComponent } from './pages/feature-flag-page/feature-fla
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FeatureFlagedDemoComponent } from './pages/feature-flaged-demo/feature-flaged-demo.component';
-
+import { IfFeatureDirective } from '../../shared/directives/if-feature.directive';
 @NgModule({
   declarations: [
     AdvancedHomeComponent,
@@ -73,6 +73,7 @@ import { FeatureFlagedDemoComponent } from './pages/feature-flaged-demo/feature-
     RouterModule,
     MatFormFieldModule,
     MatSelectModule,
+    IfFeatureDirective
 
   ],
 })

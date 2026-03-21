@@ -47,4 +47,14 @@
       (delete)="delete($event)"
     ></app-feature-flags-list>
   </section>
+
+  <!-- Demo Component -->
+  <app-feature-flaged-demo *ifFeature="'featuredflaged-demo'; else placeholder"/>
+
+
+<ng-template #placeholder>
+  <div class="placeholder">
+    <p>This is only available if featuredflaged-demo is enabled.</p>
+  </div>
+</ng-template>
 </div>
