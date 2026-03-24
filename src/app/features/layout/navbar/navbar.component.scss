@@ -1,14 +1,12 @@
 nav {
   width: 250px;
   background-color: var(--nav-bg);
-  
   display: flex;
   flex-direction: column;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
-  padding-top: 20px;
   z-index: 100;
   a{
     color: var(--nav-text);
@@ -17,9 +15,14 @@ nav {
 
 nav .logo {
   text-align: center;
+  color:#fff;
   font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 40px;
+  background: #c98d1f;
+  justify-content: center;
+  span{
+    display:inline-block;
+    line-height: 50px;
+  }
 }
 
 nav .nav-links {
@@ -30,6 +33,7 @@ nav .nav-links {
 
 
 nav .nav-links li a {
+  transition: color 0.3s ease, background-color 0.3s ease;
   text-decoration: none;
   color: var(--nav-text);
   display: block;
@@ -38,11 +42,12 @@ nav .nav-links li a {
 }
 
 nav .nav-links li a:hover {
-  background-color: #999;
+  background-color: #e3a535;
 }
 
 nav .nav-links li a.active {
-  background-color: #58460e;
+  background-color: #df9a1c;
+  color: #fff;
 }
 
 /* Main content area */

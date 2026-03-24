@@ -1,0 +1,44 @@
+.container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .card {
+  flex: 1;
+  min-width: 260px;
+  padding:  0rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  border-left: 4px solid var(--nav-bg);
+  h2 {
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+  }
+  p {
+    color: #555;
+    margin-bottom: 1rem;
+  }
+  ul {
+    padding-left: 1.2rem;
+  }
+  li {
+    margin-bottom: 0.5rem;
+    color: #666;
+  }
+}
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background: #f9b332;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+  &:disabled {
+    background: #dbc190;
+    cursor: not-allowed;
+  }
+}

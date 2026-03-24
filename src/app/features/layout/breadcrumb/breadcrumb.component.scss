@@ -1,7 +1,12 @@
 .breadcrumb {
-    padding: 10px 20px;
+  margin-bottom: 10px;
     font-size: 14px;
     color: #888;
+    display: flex;
+    align-items: center;  
+    width:100%;
+    justify-content: space-between;
+
   }
   
   .breadcrumb a {
@@ -17,3 +22,17 @@
   .divider {
     margin: 0 8px;
   }
+  .right-section {
+    display: flex;
+    gap: 10px;
+    a{
+      display:inline-block;
+      padding: 5px 10px;
+      color: #007acc;
+      text-decoration: none;
+      cursor: pointer;
+      &:nth-child(1){
+        border-right: 1px solid #888;
+      }
+    }
+  } 

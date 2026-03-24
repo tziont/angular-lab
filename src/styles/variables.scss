@@ -1,20 +1,6 @@
 
-// Custom Theming for Angular Material
-// For more information: https://material.angular.dev/guide/theming
-@use '@angular/material' as mat;
-
-html {
-  @include mat.theme((
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
-}:root {
+:root {
   /* colors */
-  --nav-bg: #e676d9;
-  --nav-text: #eaedf3;
+  --nav-bg: #f9b332;
+  --nav-text: #624703;
 }

@@ -1,3 +1,39 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+body.dark-theme nav {
+  background-color: #222;
+  &.breadcrumb {
+    color: #fff;
+  }
+}
+
+body.dark-theme nav .nav-links li a {
+  color: #ccc;
+}
+
+body.dark-theme nav .nav-links li a:hover {
+  background-color: #444;
+}
+
+body.dark-theme nav .nav-links li a.active {
+  background-color: #111;
+}
+
+body.dark-theme main {
+  background-color: #121212;
+  color: #eee;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", sans-serif;
+}
 /* Reset default list styles and apply custom icon handling */
 
 ul.flowerd-list {
@@ -31,5 +67,9 @@ ul.links-wrapper {
   padding: 0;
 }
 h1{
-  color: rgb(8, 141, 243);
+  color: #474643;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #fef7ea inset;
 }

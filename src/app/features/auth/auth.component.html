@@ -1,68 +1,58 @@
-<div class="container">
- <h1>Auth</h1>
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <header>
+      <h1>{{ activeTab === 'login' ? 'Welcome Back' : 'Create Account' }}</h1>
+      <p class="subtitle">Secure access to your Angular Lab</p>
+    </header>
 
-  <!-- Tabs -->
-  <div class="tabs">
-    <button
-      type="button"
-      (click)="activeTab = 'login'"
-      [class.active]="activeTab === 'login'"
-    >
-      Login
-    </button>
-
-    <button
-      type="button"
-      (click)="activeTab = 'signup'"
-      [class.active]="activeTab === 'signup'"
-    >
-      Signup
-    </button>
-  </div>
-
-  <form *ngIf="activeTab === 'login'" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
-    <div>
-      <label for="username">Username</label>
-      <input id="username" formControlName="username" />
+    <div class="tabs-nav">
+      <button type="button" (click)="switchTab('login')" [class.active]="activeTab === 'login'">Login</button>
+      <button type="button" (click)="switchTab('signup')" [class.active]="activeTab === 'signup'">Signup</button>
     </div>
 
-    <div>
-      <label for="password">Password</label>
-      <input id="password" type="password" formControlName="password" />
-    </div>
-  <p *ngIf="loginErrorMessage" style="color: red">{{ loginErrorMessage }}</p>
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
-  </form>
-
- 
-  <div *ngIf="activeTab === 'signup'">
-  <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
-    <div>
-      <label>Username</label>
-      <input formControlName="username" />
-    </div>
-    <p *ngIf="signupForm.get('username')?.errors?.['usernameTaken']" style="color: red">
-  Username already exists
+    <p class="alert-error" *ngIf="loginErrorMessage || signupErrorMessage">
+      {{ loginErrorMessage || signupErrorMessage }}
     </p>
-    <div>
-      <label>Password</label>
-      <input type="password" formControlName="password" />
+
+    <form *ngIf="activeTab === 'login'" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <label for="login-user">Username</label>
+        <input id="login-user" formControlName="username" placeholder="Enter username" />
+      </div>
+
+      <div class="form-field">
+        <label for="login-pass">Password</label>
+        <input id="login-pass" type="password" formControlName="password" placeholder="••••••••" />
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="loginForm.invalid || isLoading">
+        {{ isLoading ? 'Processing...' : 'Login' }}
+      </button>
+    </form>
+
+    <div *ngIf="activeTab === 'signup'">
+      <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+        <div class="form-field">
+          <label for="sig-user">Username</label>
+          <input id="sig-user" formControlName="username" placeholder="Choose a username" />
+          <p class="field-error" *ngIf="signupForm.get('username')?.errors?.['usernameTaken']">Username already exists</p>
+        </div>
+
+        <div class="form-field">
+          <label for="sig-pass">Password</label>
+          <input id="sig-pass" type="password" formControlName="password" placeholder="••••••••" />
+        </div>
+
+        <div class="form-field">
+          <label for="sig-conf">Confirm Password</label>
+          <input id="sig-conf" type="password" formControlName="confirmPassword" placeholder="••••••••" />
+          <p class="field-error" *ngIf="signupForm.touched && showPasswordError">Passwords do not match</p>
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="signupForm.invalid || isLoading">
+          {{ isLoading ? 'Creating Account...' : 'Signup' }}
+        </button>
+      </form>
     </div>
-    <div>
-      <label>Confirm Password</label>
-      <input type="password" formControlName="confirmPassword" />
-    </div>
-    <div *ngIf="signupForm.touched && showPasswordError"
-     style="color: red">
-  Passwords do not match
-</div>
- <p *ngIf="signupErrorMessage" style="color: red">{{ signupErrorMessage }}</p>
-    <button type="submit" [disabled]="signupForm.invalid">Signup</button>
-  </form>
-
-
- 
-
-
+  </div>
 </div>
