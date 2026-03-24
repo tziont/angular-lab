@@ -1,33 +1,4 @@
-
-@use 'styles/general-elements';
+@use "styles/general-elements";
+@use "styles/general-classes";
 /* You can add global styles to this file, and also import other style files */
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--color-bg);
-  color: var(--color-text);
-}
-body.dark-theme nav {
-    background-color: #222;
-    &.breadcrumb{
-        color:#fff;
-    }
-  }
-  
-  body.dark-theme nav .nav-links li a {
-    color: #ccc;
-  }
-  
-  body.dark-theme nav .nav-links li a:hover {
-    background-color: #444;
-  }
-  
-  body.dark-theme nav .nav-links li a.active {
-    background-color: #111;
-  }
-  
-  body.dark-theme main {
-    background-color: #121212;
-    color: #eee;
-  }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+

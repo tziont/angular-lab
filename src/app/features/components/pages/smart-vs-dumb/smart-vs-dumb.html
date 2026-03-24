@@ -1,0 +1,35 @@
+<div class="container">
+  <h1>Smart vs Dumb Components</h1>
+
+  <section class="overview">
+    <div class="cards">
+      
+      <!-- Smart Component -->
+      <div class="card smart">
+        <h2>Smart (Container)</h2>
+        <p>
+          Handles application logic, manages state, and communicates with services.
+        </p>
+        <ul>
+          <li>Fetches and prepares data</li>
+          <li>Manages state</li>
+          <li>Handles side effects</li>
+        </ul>
+      </div>
+
+      <!-- Dumb Component -->
+      <div class="card dumb">
+        <h2>Dumb (Presentational)</h2>
+        <p>
+          Focuses purely on UI. Receives data via inputs and emits events.
+        </p>
+        <ul>
+          <li>Uses &#64;Input() for data</li>
+          <li>Uses &#64;Output() for events</li>
+          <li>No business logic</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+</div>

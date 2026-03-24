@@ -1,13 +1,10 @@
 <nav class="navbar">
-  <div class="logo" routerLink="/">Senior Angular Lab</div>
+  <div class="logo" routerLink="/"><span>Angular Lab</span></div>
   <ul class="nav-links">
     <li *ngFor="let topic of topics">
       <a [routerLink]="topic.path" routerLinkActive="active">{{ topic.label }}</a>
     </li>
-    <div>
-      <button (click)="toggleTheme()" >Toggle theme</button>
-    </div>
-    <button (click)="logout()">Logout</button>
+
   </ul>
   
 </nav>
