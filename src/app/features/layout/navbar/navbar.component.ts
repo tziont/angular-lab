@@ -16,16 +16,7 @@ export class NavbarComponent {
   
 constructor(private theme: ThemeService) {}
 
-toggleTheme() {
-  this.theme.toggle();
-}
 
-
-
-  logout():void{
-    this.authService.logout();
-    this.router.navigate(['/']);
-  }
 
   readonly topics = [
     { path: 'components', label: 'Components' },
