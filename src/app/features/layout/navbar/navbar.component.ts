@@ -31,5 +31,6 @@ constructor(private theme: ThemeService) {}
     { path: 'signals', label: 'Signals & State' },
     { path: 'testing', label: 'Testing' },
     { path: 'advanced', label: 'Advanced Topics' },
+    { path: 'practice', label: 'Practice' },
   ];
 }

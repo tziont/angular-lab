@@ -25,4 +25,4 @@ const SettingSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Setting', SettingSchema,'Setting');// third argument = collection name
+module.exports = mongoose.model('Setting', SettingSchema);// third argument = collection name

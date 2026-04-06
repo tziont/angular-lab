@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
 import { HomeComponent } from '../layout/pages/home/home.component';
+import { PracticeComponent } from '../practice/practice.component';
 
 const routes: Routes = [
   {
@@ -90,6 +91,9 @@ const routes: Routes = [
           import('../advanced/advanced.module').then(
             (m) => m.AdvancedModule
           ),
+      },
+      { 
+        path: 'practice', component: PracticeComponent,
       },
       // Add more topic routes here as we progress...
     ],

@@ -1,4 +1,5 @@
 // angular-lab-server/index.js
+require('dotenv').config();
 const cors = require('cors');
 const https = require('https');
 const fs = require('fs');
@@ -18,6 +19,16 @@ const cookieParser = require('cookie-parser');
 
 const OpenAI = require('openai');
 const app = express();
+
+
+// Connect to MongoDB Atlas
+mongoose.connect(process.env.MONGODB_ATLAS_URI)
+  .then(() => console.log('✅ Connected to MongoDB Atlas'))
+  .catch(err => {
+    console.error('❌ MongoDB connection error:', err);
+    process.exit(1);
+  });
+
 const User = require('./models/User');
 const Setting = require('./models/Setting');
 const bcrypt = require('bcrypt');
@@ -249,10 +260,8 @@ app.put('/settings', verifyToken, async (req, res) => {
 
 
 
-// --- MongoDB Connection ---
-mongoose.connect(process.env.MONGODB_ATLAS_URI)
-  .then(() => console.log("✅ Connected to MongoDB Atlas"))
-  .catch(err => console.error("❌ MongoDB connection error:", err));
+// Connect to MongoDB and start server
+
 // --- Start HTTPS Server ---
 https.createServer(sslOptions, app).listen(PORT, () => {
   console.log('✅ HTTPS server running on https://localhost:3001');

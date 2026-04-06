@@ -17,12 +17,14 @@ import { uiReducer } from './features/advanced/ngrx/state/ui.reducers';
 import { UserListComponent } from './features/ai/pages/ai-code-generation/user-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as Sentry from '@sentry/angular';
+import { PracticeComponent } from './features/practice/practice.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     UserListComponent,
+    PracticeComponent,
 
       ],
   imports: [
