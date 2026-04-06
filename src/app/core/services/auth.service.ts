@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../../types/user.model';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +16,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-
+private userSubject = new BehaviorSubject<User | null>(this.getUser());
+user$ = this.userSubject.asObservable();
   // --- user methods ---
   saveUser(user: User): void {
     localStorage.setItem(this.userKey, JSON.stringify(user));
+    this.userSubject.next(user); // Broadcast to the app!
   }
 
   getUser(): User | null {
@@ -29,6 +31,7 @@ export class AuthService {
 
   removeUser(): void {
     localStorage.removeItem(this.userKey);
+    this.userSubject.next(null);
   }
 
   // --- logout ---

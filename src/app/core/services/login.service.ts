@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 import { User } from '../../types/user.model';
+import { AuthService } from './auth.service'; // Import your "Brain" service
 
 export interface LoginRequest {
   username: string;
@@ -18,15 +19,27 @@ export interface LoginResponse {
   providedIn: 'root',
 })
 export class LoginService {
-  private readonly BASE_URL = 'https://localhost:3001'; // Express backend port
+ private readonly http = inject(HttpClient);
+ private readonly auth = inject(AuthService); // Inject it here
+ private readonly BASE_URL = 'https://localhost:3001';
 
-  constructor(private http: HttpClient) {}
 
 
 
-login(credentials: LoginRequest) : Observable<LoginResponse>{
-  return this.http.post<LoginResponse>(`${this.BASE_URL}/login`, credentials, { withCredentials: true } // ✅ sends/receives httpOnly cookies
-  );
-}
+
+login(credentials: LoginRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(
+      `${this.BASE_URL}/login`, 
+      credentials, 
+      { withCredentials: true }
+    ).pipe(
+      tap(response => {
+        // [CRITICAL]: Push the user into the AuthService stream!
+        // This is what makes the Feature Flags wake up.
+        this.auth.saveUser(response.user); 
+      })
+    );
+  }
+
 
 }
