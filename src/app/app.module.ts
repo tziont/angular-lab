@@ -9,6 +9,7 @@ import { LoggingInterceptor } from './core/interceptors/logging-interceptor.serv
 import { ErrorHandlingInterceptor } from './core/interceptors/error-handling-interceptor.service';
 import { AuthInterceptor } from './core/interceptors/auth.-interceptor.service';
 import { StoreModule } from '@ngrx/store';
+import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import  { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { counterReducer } from './features/advanced/ngrx/state/counter.reducer';
@@ -29,6 +30,7 @@ import { PracticeComponent } from './features/practice/practice.component';
       ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find \"C:\\\\\\\\Users\\\\\\\\tzion\\\\\\\\OneDrive\\\\\\\\מסמכים\\\\\\\\Dev\\\\\\\\Dev_Projects\\\\\\\\senior-angular-lab\\\\\\\\src\\\\\\\\app\" -type d)",
+      "Bash(find \"C:\\\\\\\\Users\\\\\\\\tzion\\\\\\\\OneDrive\\\\\\\\מסמכים\\\\\\\\Dev\\\\\\\\Dev_Projects\\\\\\\\senior-angular-lab\\\\\\\\src\\\\\\\\app\\\\\\\\features\" -maxdepth 2 -type f -name \"*.module.ts\")",
+      "Bash(find C:\\\\\\\\Users\\\\\\\\tzion\\\\\\\\OneDrive\\\\\\\\מסמכים\\\\\\\\Dev\\\\\\\\Dev_Projects\\\\\\\\senior-angular-lab *)",
+      "Bash(find \"C:\\\\\\\\Users\\\\\\\\tzion\\\\\\\\OneDrive\\\\\\\\מסמכים\\\\\\\\Dev\\\\\\\\Dev_Projects\\\\\\\\senior-angular-lab\\\\\\\\src\" -maxdepth 2 -type f \\\\\\( -name \"*.ts\" -o -name \"*.json\" \\\\\\))",
+      "Bash(head *)",
+      "Bash(find C:\\\\\\\\Users\\\\\\\\tzion\\\\\\\\OneDrive\\\\\\\\מסמכים\\\\\\\\Dev\\\\\\\\Dev_Projects\\\\\\\\senior-angular-lab\\\\\\\\src\\\\\\\\app *)"
+    ]
+  }
+}
